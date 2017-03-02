@@ -7,12 +7,16 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.Random;
+
 public class UWar extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private Player player;
+	private Monster monster;
 	private OrthographicCamera camera;
 	private Texture texture;
 	private Pixmap pixmap;
+	private Random r;
 
 //	Zmienna wyświetlająca obecną pozycję
  	private BitmapFont font;
@@ -21,11 +25,19 @@ public class UWar extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 
+//		Random
+		r = new Random();
+
 //		Kamera i jej ustawienia
 		camera = new OrthographicCamera(5000,5000);
 		camera.zoom = (float) 0.2;
 
+//		Utworzenie gracza
 		player = new Player(camera.viewportWidth / 2f, camera.viewportHeight / 2f);
+
+//		Utworzenie potwora
+		monster = new Monster(r.nextInt(5000),r.nextInt(5000));
+//		monster = new Monster(2400,2400);
 
 //		Rysowanie prostokąta
 		pixmap = new Pixmap(5000, 5000, Pixmap.Format.RGBA8888);
@@ -54,8 +66,14 @@ public class UWar extends ApplicationAdapter {
 //		rysowanie postaci gracza
 		batch.draw(player.getTexture(),player.x, player.y);
 
+//		rysowanie potwora
+		batch.draw(monster.getTexture(), monster.x + monster.width/2, monster.y + monster.height/2);
+
 //		wypisanie współrzędnych gracza
 		font.draw(batch, "x: " + player.x + "y: " + player.y, camera.position.x - 490, camera.position.y + 490);
+
+//		wypsiywanie współrzędnych potwora
+		font.draw(batch, "x: " + monster.x + "y: " + monster.y, camera.position.x - 490, camera.position.y + 470);
 
 		batch.end();
 	}
@@ -97,6 +115,18 @@ public class UWar extends ApplicationAdapter {
 			}
 		}
 
+//		ruch potwora
+		if(monster.getMoveQuantity() > 0){
+			monster.moveToBottom();
+			monster.moveToLeft();
+			monster.moveToRight();
+			monster.moveToTop();
+			monster.setMoveQuantity(monster.getMoveQuantity()-1);
+		}else{
+			monster.generateMove();
+		}
+
+//		sterowanie
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
 			Gdx.app.exit();
 		}
@@ -127,10 +157,14 @@ public class UWar extends ApplicationAdapter {
 
 
 //		Zoom+
-//		if(Gdx.input.isKeyPressed(Input.Keys.X)){
-//			System.out.println(camera.zoom);
-//			camera.zoom -=0.2;
-//		}
+		if(Gdx.input.isKeyPressed(Input.Keys.X)){
+			camera.zoom +=0.2;
+		}
+
+//		Zoom-
+		if(Gdx.input.isKeyPressed(Input.Keys.C)){
+			camera.zoom -=0.2;
+		}
 
 	}
 

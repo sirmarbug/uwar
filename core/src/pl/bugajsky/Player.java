@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Circle;
 public class Player extends Circle{
 
     private int hp;
+    private double speed;
     private int score;
     private Texture texture;
     private Pixmap pixmap;
@@ -20,6 +21,7 @@ public class Player extends Circle{
         super(x,y,10);
         hp = 100;
         score = 0;
+        speed = 1.0;
         pixmap = new Pixmap(20, 20, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.YELLOW);
         pixmap.fillCircle(10, 10, 10);
