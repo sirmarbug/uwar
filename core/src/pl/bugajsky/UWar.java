@@ -1,6 +1,6 @@
 package pl.bugajsky;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.*;
@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.Random;
 
-public class UWar extends ApplicationAdapter {
+public class UWar extends Game{
 	private SpriteBatch batch;
 	private Player player;
 	private Monster monster;
@@ -53,6 +53,8 @@ public class UWar extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+
+		super.render();
 
 		update();
 
@@ -124,6 +126,11 @@ public class UWar extends ApplicationAdapter {
 			monster.setMoveQuantity(monster.getMoveQuantity()-1);
 		}else{
 			monster.generateMove();
+			monster.moveToBottom();
+			monster.moveToLeft();
+			monster.moveToRight();
+			monster.moveToTop();
+			monster.setMoveQuantity(monster.getMoveQuantity()-1);
 		}
 
 //		sterowanie
@@ -173,5 +180,6 @@ public class UWar extends ApplicationAdapter {
 		batch.dispose();
 		player.getTexture().dispose();
 		font.dispose();
+		monster.getTexture().dispose();
 	}
 }
