@@ -4,8 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import java.util.Random;
 
@@ -17,12 +21,28 @@ public class UWar extends Game{
 	private Texture texture;
 	private Pixmap pixmap;
 	private Random r;
-
 //	Zmienna wyświetlająca obecną pozycję
  	private BitmapFont font;
+ 	private Stage stage;
+ 	private Interface myinterface;
+
+ 	class Staty extends Actor{
+		BitmapFont font = new BitmapFont();
+		Texture texture = new Texture(Gdx.files.internal("player.png"));
+
+		@Override
+		public void draw(Batch batch, float parentAlpha){
+			batch.draw(texture, 0,0);
+			font.setColor(Color.WHITE);
+			font.draw(batch, "Tekst", 100, 100);
+		}
+	}
+
 
 	@Override
 	public void create () {
+ 		stage = new Stage(new ScreenViewport());
+
 		batch = new SpriteBatch();
 
 //		Random
@@ -34,6 +54,10 @@ public class UWar extends Game{
 
 //		Utworzenie gracza
 		player = new Player(camera.viewportWidth / 2f, camera.viewportHeight / 2f);
+
+		myinterface = new Interface();
+		stage.addActor(myinterface);
+		Gdx.input.setInputProcessor(stage);
 
 //		Utworzenie potwora
 		monster = new Monster(r.nextInt(5000),r.nextInt(5000));
@@ -60,6 +84,8 @@ public class UWar extends Game{
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
 		batch.begin();
 
 //		rysowanie obszaru ruchu
@@ -72,10 +98,10 @@ public class UWar extends Game{
 		batch.draw(monster.getTexture(), monster.x + monster.width/2, monster.y + monster.height/2);
 
 //		wypisanie współrzędnych gracza
-		font.draw(batch, "x: " + player.x + "y: " + player.y, camera.position.x - 490, camera.position.y + 490);
+//		font.draw(batch, "x: " + player.x + "y: " + player.y, camera.position.x - 490, camera.position.y + 490);
 
 //		wypsiywanie współrzędnych potwora
-		font.draw(batch, "x: " + monster.x + "y: " + monster.y, camera.position.x - 490, camera.position.y + 470);
+//		font.draw(batch, "x: " + monster.x + "y: " + monster.y, camera.position.x - 490, camera.position.y + 470);
 
 		batch.end();
 	}
@@ -84,6 +110,15 @@ public class UWar extends Game{
 
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
+
+//		ustawienie współrzędnych playera
+		myinterface.setPlayer("x: " + player.x + " y: " + player.y);
+
+//		ustawienie współrzędnych monstera
+		myinterface.setMonster("x: " + monster.x + " y: " + monster.y);
+
+//		ustawienie życia bohatera
+		myinterface.setLife("Life: " + player.getHp());
 
 //		ustawienie kamery tak aby mapa była maksymalnie do krańców ekranu
 //		ustawienie kamery z lewej strony i prawej strony
@@ -181,5 +216,6 @@ public class UWar extends Game{
 		player.getTexture().dispose();
 		font.dispose();
 		monster.getTexture().dispose();
+		stage.dispose();
 	}
 }
