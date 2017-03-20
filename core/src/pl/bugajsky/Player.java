@@ -19,7 +19,7 @@ public class Player extends Circle{
 
     public Player(float x, float y){
         super(x,y,10);
-        hp = 100;
+        hp = 90;
         score = 0;
         speed = 1.0;
         pixmap = new Pixmap(20, 20, Pixmap.Format.RGBA8888);

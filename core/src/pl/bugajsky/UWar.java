@@ -19,6 +19,8 @@ public class UWar extends Game{
 	private Monster monster;
 	private OrthographicCamera camera;
 	private Texture texture;
+	private Texture home;
+	private float timeHome;
 	private Pixmap pixmap;
 	private Random r;
 //	Zmienna wyświetlająca obecną pozycję
@@ -70,6 +72,16 @@ public class UWar extends Game{
 		texture = new Texture(pixmap);
 		pixmap.dispose();
 
+//		Utworzenie wyglądu bazy
+		pixmap = new Pixmap(200,200, Pixmap.Format.RGBA8888);
+		pixmap.setColor(Color.GREEN);
+		pixmap.fillRectangle(0,0,200,200);
+		home = new Texture(pixmap);
+		pixmap.dispose();
+
+//		TimerHome
+		timeHome = 0;
+
 //		napis
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
@@ -90,6 +102,9 @@ public class UWar extends Game{
 
 //		rysowanie obszaru ruchu
 		batch.draw(texture,0,0);
+
+//		obszar bazy
+		batch.draw(home,2400,2400, home.getWidth(),home.getHeight());
 
 //		rysowanie postaci gracza
 		batch.draw(player.getTexture(),player.x, player.y);
@@ -150,6 +165,23 @@ public class UWar extends Game{
 					camera.position.set(4500, player.y, 0);
 				}
 			}
+		}
+
+//		dodawanie życia w bazie
+		if(player.x > 2400 && player.x < 2600){
+			if(player.y > 2400 && player.y < 2600){
+				if(player.getHp() < 100){
+					timeHome += Gdx.graphics.getDeltaTime();
+					if(timeHome > 1){
+						player.setHp(player.getHp() + 1);
+						timeHome = 0;
+					}
+				}
+			}else{
+				timeHome = 0;
+			}
+		}else{
+			timeHome = 0;
 		}
 
 //		ruch potwora
@@ -215,6 +247,8 @@ public class UWar extends Game{
 		batch.dispose();
 		player.getTexture().dispose();
 		font.dispose();
+		texture.dispose();
+		home.dispose();
 		monster.getTexture().dispose();
 		stage.dispose();
 	}
