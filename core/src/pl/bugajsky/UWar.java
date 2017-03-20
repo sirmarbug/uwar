@@ -206,22 +206,22 @@ public class UWar extends Game{
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.W) && player.y < 5000-2*player.radius){
-			player.y += 5;
+			player.y += 250 * Gdx.graphics.getDeltaTime();
 //			System.out.println(player.y);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.S) && player.y > 0){
-			player.y -= 5;
+			player.y -= 250 * Gdx.graphics.getDeltaTime();;
 //			System.out.println(player.y);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.A) && player.x > 0){
-			player.x -= 5;
+			player.x -= 250 * Gdx.graphics.getDeltaTime();
 //			System.out.println(player.x);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.D) && player.x < 5000-2*player.radius) {
-			player.x += 5;
+			player.x += 250 * Gdx.graphics.getDeltaTime();
 //			System.out.println(player.x);
 		}
 
