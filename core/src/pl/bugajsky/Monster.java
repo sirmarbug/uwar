@@ -14,6 +14,7 @@ import java.util.Random;
 public class Monster extends Rectangle{
 
     private int hp;
+    private int score;
     private double speed;
     private Texture texture;
     private Pixmap pixmap;
@@ -26,6 +27,7 @@ public class Monster extends Rectangle{
         r = new Random();
         hp = 5;
         speed = 5;
+        score = 1;
         moveDirection = r.nextInt(4);
         moveQuantity = r.nextInt(5)+1;
         pixmap = new Pixmap(30, 30, Pixmap.Format.RGBA8888);
@@ -115,5 +117,13 @@ public class Monster extends Rectangle{
             moveDirection = r.nextInt(4);
             moveQuantity = r.nextInt(5)+1;
         }
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

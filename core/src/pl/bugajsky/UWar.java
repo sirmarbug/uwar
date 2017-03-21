@@ -92,6 +92,7 @@ public class UWar extends Game{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
+
 		batch.begin();
 
 //		rysowanie obszaru ruchu
@@ -129,6 +130,9 @@ public class UWar extends Game{
 
 //		ustawienie życia bohatera
 		myinterface.setLife("Life: " + player.getHp());
+
+//		ustawienie obecnego wyniku
+		myinterface.setScore(player.getScore() + "");
 
 //		ustawienie kamery tak aby mapa była maksymalnie do krańców ekranu
 //		ustawienie kamery z lewej strony i prawej strony
@@ -244,9 +248,11 @@ public class UWar extends Game{
 				Monster p = pot.next();
 				if (shoot.overlaps(p)) {
 					p.setHp(p.getHp() - shoot.getStrong());
-					System.out.println("Życie: " + p.getHp());
+//					System.out.println("Życie: " + p.getHp());
 					if(p.getHp() < 1){
-						System.out.println("weszło");
+//						System.out.println("weszło");
+						player.setScore(player.getScore() + p.getScore());
+						System.out.println();
 						pot.remove();
 					}
 					it.remove();

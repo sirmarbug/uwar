@@ -11,10 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class Interface extends Actor{
     private String player;
-    private String monster;
+    private String score;
     private String life;
     BitmapFont playerFont = new BitmapFont();
-    BitmapFont monsterFont = new BitmapFont();
+    BitmapFont scoreFont = new BitmapFont();
     BitmapFont lifeFont = new BitmapFont();
 
     public Interface(){
@@ -28,12 +28,12 @@ public class Interface extends Actor{
         this.player = player;
     }
 
-    public String getMonster() {
-        return monster;
+    public String getScore() {
+        return score;
     }
 
-    public void setMonster(String monster) {
-        this.monster = monster;
+    public void setScore(String monster) {
+        this.score = monster;
     }
 
     public String getLife() {
@@ -48,8 +48,8 @@ public class Interface extends Actor{
     public void draw(Batch batch, float parentAlpha){
         playerFont.setColor(Color.WHITE);
         playerFont.draw(batch, player, 5, 475);
-//        monsterFont.setColor(Color.WHITE);
-//        playerFont.draw(batch, monster, 5, 450);
+        scoreFont.setColor(Color.WHITE);
+        playerFont.draw(batch, score, 300, 475);
         lifeFont.setColor(Color.WHITE);
         playerFont.draw(batch, life, 580, 475);
     }
