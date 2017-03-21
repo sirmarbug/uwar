@@ -14,6 +14,7 @@ public class Player extends Circle{
     private int hp;
     private double speed;
     private int score;
+    private int direction;
     private Texture texture;
     private Pixmap pixmap;
 
@@ -22,6 +23,7 @@ public class Player extends Circle{
         hp = 90;
         score = 0;
         speed = 1.0;
+        direction = 0;
         pixmap = new Pixmap(20, 20, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.YELLOW);
         pixmap.fillCircle(10, 10, 10);
@@ -59,5 +61,21 @@ public class Player extends Circle{
 
     public void setPixmap(Pixmap pixmap) {
         this.pixmap = pixmap;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
 }

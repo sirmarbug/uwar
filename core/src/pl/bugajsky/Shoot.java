@@ -10,13 +10,15 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class Shoot extends Rectangle {
     private int strong;
+    private int direction;
     private Texture texture;
     private Pixmap pixmap;
 
-    public Shoot(float x, float y, int strong){
+    public Shoot(float x, float y, int strong, int direction){
         this.x = x;
         this.y = y;
         this.strong = strong;
+        this.direction = direction;
         pixmap = new Pixmap(10, 20, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.RED);
         pixmap.fillRectangle(0,0,10,20);
@@ -46,5 +48,13 @@ public class Shoot extends Rectangle {
 
     public void setPixmap(Pixmap pixmap) {
         this.pixmap = pixmap;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
 }

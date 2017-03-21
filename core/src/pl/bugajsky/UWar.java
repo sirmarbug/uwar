@@ -4,10 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -16,33 +14,21 @@ import java.util.*;
 public class UWar extends Game{
 	private SpriteBatch batch;
 	private Player player;
-	private Monster monster;
 	private OrthographicCamera camera;
 	private Texture texture;
 	private Texture home;
 	private float timeHome;
 	private float timeShoot;
+	private float timerMonster;
 	private Pixmap pixmap;
 	private Random r;
 //	lista strzałów
-	private LinkedList<Shoot> strzały;
+	private LinkedList<Shoot> strzaly; //lista strzałów
+	private LinkedList<Monster> potwory; //lista potworów
 //	Zmienna wyświetlająca obecną pozycję
  	private BitmapFont font;
  	private Stage stage;
  	private Interface myinterface;
-
- 	class Staty extends Actor{
-		BitmapFont font = new BitmapFont();
-		Texture texture = new Texture(Gdx.files.internal("player.png"));
-
-		@Override
-		public void draw(Batch batch, float parentAlpha){
-			batch.draw(texture, 0,0);
-			font.setColor(Color.WHITE);
-			font.draw(batch, "Tekst", 100, 100);
-		}
-	}
-
 
 	@Override
 	public void create () {
@@ -51,7 +37,10 @@ public class UWar extends Game{
 		batch = new SpriteBatch();
 
 //		Inicjalizacja strzałów
-		strzały = new LinkedList<Shoot>();
+		strzaly = new LinkedList<Shoot>();
+
+//		Inicjalizacja potworów
+		potwory = new LinkedList<Monster>();
 
 //		Random
 		r = new Random();
@@ -66,10 +55,6 @@ public class UWar extends Game{
 		myinterface = new Interface();
 		stage.addActor(myinterface);
 		Gdx.input.setInputProcessor(stage);
-
-//		Utworzenie potwora
-		monster = new Monster(r.nextInt(5000),r.nextInt(5000));
-//		monster = new Monster(2400,2400);
 
 //		Rysowanie prostokąta
 		pixmap = new Pixmap(5000, 5000, Pixmap.Format.RGBA8888);
@@ -119,29 +104,19 @@ public class UWar extends Game{
 		batch.draw(player.getTexture(),player.x, player.y);
 
 //		Rysowanie strzałów
-		for (Shoot s : strzały) {
-//			batch.draw(s.getTexture(),player.x + player.getTexture().getWidth() / 2, player.y + player.getTexture().getHeight());
+		for (Shoot s : strzaly) {
 			batch.draw(s.getTexture(), s.x, s.y);
-
 		}
 
+//		Rysowanie potworów z listy
+		for (Monster m : potwory) {
+			batch.draw(m.getTexture(), m.x, m.y);
+		}
 
-//		rysowanie potwora
-		batch.draw(monster.getTexture(), monster.x + monster.width/2, monster.y + monster.height/2);
-
-//		wypisanie współrzędnych gracza
-//		font.draw(batch, "x: " + player.x + "y: " + player.y, camera.position.x - 490, camera.position.y + 490);
-
-//		wypsiywanie współrzędnych potwora
-//		font.draw(batch, "x: " + monster.x + "y: " + monster.y, camera.position.x - 490, camera.position.y + 470);
+//		Wartość zooma
+//		font.draw(batch,camera.zoom + "",2500,2700);
 
 		batch.end();
-
-//		try {
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
 	}
 
 	private void update() {
@@ -151,9 +126,6 @@ public class UWar extends Game{
 
 //		ustawienie współrzędnych playera
 		myinterface.setPlayer("x: " + player.x + " y: " + player.y);
-
-//		ustawienie współrzędnych monstera
-		myinterface.setMonster("x: " + monster.x + " y: " + monster.y);
 
 //		ustawienie życia bohatera
 		myinterface.setLife("Life: " + player.getHp());
@@ -211,39 +183,75 @@ public class UWar extends Game{
 //		dodanie strzałów
 		timeShoot += Gdx.graphics.getDeltaTime();
 		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-			if(timeShoot > 0.5){
-				strzały.add(new Shoot(player.x + player.getTexture().getWidth() / 2 - 5, player.y + player.getTexture().getHeight() / 2 - 5, 1));
+			if(timeShoot > 0.2){
+				strzaly.add(new Shoot(player.x + player.getTexture().getWidth() / 2 - 5, player.y + player.getTexture().getHeight() / 2 - 5, 1, player.getDirection()));
 				timeShoot = 0;
 			}
 		}
 
-		for (Shoot s : strzały) {
-			s.y += 300 * Gdx.graphics.getDeltaTime();
-		}
-
-		for(Iterator<Shoot> it = strzały.iterator(); it.hasNext();) {
-			Shoot shoot = it.next();
-
-			if (shoot.y > 5000 || shoot.y < 0) {
-				System.out.println("weszło");
-				it.remove();
-
+		for (Shoot s : strzaly) {
+			if(s.getDirection() == 0){
+				s.x -= 300 * Gdx.graphics.getDeltaTime();
+			}
+			if(s.getDirection() == 1){
+				s.y += 300 * Gdx.graphics.getDeltaTime();
+			}
+			if(s.getDirection() == 2){
+				s.x += 300 * Gdx.graphics.getDeltaTime();
+			}
+			if(s.getDirection() == 3){
+				s.y -= 300 * Gdx.graphics.getDeltaTime();
 			}
 		}
-//		ruch potwora
-		if(monster.getMoveQuantity() > 0){
-			monster.moveToBottom();
-			monster.moveToLeft();
-			monster.moveToRight();
-			monster.moveToTop();
-			monster.setMoveQuantity(monster.getMoveQuantity()-1);
-		}else{
-			monster.generateMove();
-			monster.moveToBottom();
-			monster.moveToLeft();
-			monster.moveToRight();
-			monster.moveToTop();
-			monster.setMoveQuantity(monster.getMoveQuantity()-1);
+
+//		ograniczenie pola strzałów do mapy gry
+		for(Iterator<Shoot> it = strzaly.iterator(); it.hasNext();) {
+			Shoot shoot = it.next();
+			if (shoot.y > 5000 || shoot.y < 0 || shoot.x > 5000 || shoot.x < 0) {
+				it.remove();
+			}
+		}
+
+//		POTWORY
+		timerMonster += Gdx.graphics.getDeltaTime();
+			if(timerMonster > 1){
+				potwory.add(new Monster(r.nextInt(5000),r.nextInt(5000)));
+				timerMonster = 0;
+			}
+
+		for (Monster m : potwory) {
+			if (m.getMoveQuantity() > 0) {
+				m.moveToBottom();
+				m.moveToLeft();
+				m.moveToRight();
+				m.moveToTop();
+				m.setMoveQuantity(m.getMoveQuantity() - 1);
+			} else {
+				m.generateMove();
+				m.moveToBottom();
+				m.moveToLeft();
+				m.moveToRight();
+				m.moveToTop();
+				m.setMoveQuantity(m.getMoveQuantity() - 1);
+			}
+		}
+
+//		KOLIZJE
+//		Strzał - potwór
+		for(Iterator<Shoot> it = strzaly.iterator(); it.hasNext();) {
+			Shoot shoot = it.next();
+			for(Iterator<Monster> pot = potwory.iterator(); pot.hasNext();) {
+				Monster p = pot.next();
+				if (shoot.overlaps(p)) {
+					p.setHp(p.getHp() - shoot.getStrong());
+					System.out.println("Życie: " + p.getHp());
+					if(p.getHp() < 1){
+						System.out.println("weszło");
+						pot.remove();
+					}
+					it.remove();
+				}
+			}
 		}
 
 //		sterowanie
@@ -253,36 +261,42 @@ public class UWar extends Game{
 
 		if(Gdx.input.isKeyPressed(Input.Keys.W) && player.y < 5000-2*player.radius){
 			player.y += 250 * Gdx.graphics.getDeltaTime();
-//			System.out.println(player.y);
+			player.setDirection(1);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.S) && player.y > 0){
-			player.y -= 250 * Gdx.graphics.getDeltaTime();;
-//			System.out.println(player.y);
+			player.y -= 250 * Gdx.graphics.getDeltaTime();
+			player.setDirection(3);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.A) && player.x > 0){
 			player.x -= 250 * Gdx.graphics.getDeltaTime();
-//			System.out.println(player.x);
+			player.setDirection(0);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.D) && player.x < 5000-2*player.radius) {
 			player.x += 250 * Gdx.graphics.getDeltaTime();
-//			System.out.println(player.x);
+			player.setDirection(2);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
 			player.x += 20;
 		}
 
-//		Zoom+
+//		Zoom-
 		if(Gdx.input.isKeyPressed(Input.Keys.X)){
-			camera.zoom +=0.2;
+			if(camera.zoom >= 0 && camera.zoom <= 0.95){
+				camera.zoom += 0.01;
+//				System.out.println(camera.zoom);
+			}
 		}
 
-//		Zoom-
+//		Zoom+
 		if(Gdx.input.isKeyPressed(Input.Keys.C)){
-			camera.zoom -=0.2;
+			if(camera.zoom >= 0.1 && camera.zoom <= 1){
+				camera.zoom -= 0.01;
+//				System.out.println(camera.zoom);
+			}
 		}
 	}
 
@@ -293,7 +307,6 @@ public class UWar extends Game{
 		font.dispose();
 		texture.dispose();
 		home.dispose();
-		monster.getTexture().dispose();
 		stage.dispose();
 	}
 }

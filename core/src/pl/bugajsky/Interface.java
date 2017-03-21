@@ -48,8 +48,8 @@ public class Interface extends Actor{
     public void draw(Batch batch, float parentAlpha){
         playerFont.setColor(Color.WHITE);
         playerFont.draw(batch, player, 5, 475);
-        monsterFont.setColor(Color.WHITE);
-        playerFont.draw(batch, monster, 5, 450);
+//        monsterFont.setColor(Color.WHITE);
+//        playerFont.draw(batch, monster, 5, 450);
         lifeFont.setColor(Color.WHITE);
         playerFont.draw(batch, life, 580, 475);
     }
