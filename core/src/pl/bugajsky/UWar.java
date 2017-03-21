@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import java.util.Random;
+import java.util.*;
 
 public class UWar extends Game{
 	private SpriteBatch batch;
@@ -21,8 +21,11 @@ public class UWar extends Game{
 	private Texture texture;
 	private Texture home;
 	private float timeHome;
+	private float timeShoot;
 	private Pixmap pixmap;
 	private Random r;
+//	lista strzałów
+	private LinkedList<Shoot> strzały;
 //	Zmienna wyświetlająca obecną pozycję
  	private BitmapFont font;
  	private Stage stage;
@@ -46,6 +49,9 @@ public class UWar extends Game{
  		stage = new Stage(new ScreenViewport());
 
 		batch = new SpriteBatch();
+
+//		Inicjalizacja strzałów
+		strzały = new LinkedList<Shoot>();
 
 //		Random
 		r = new Random();
@@ -82,6 +88,9 @@ public class UWar extends Game{
 //		TimerHome
 		timeHome = 0;
 
+//		TimerShoot
+		timeShoot = 1;
+
 //		napis
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
@@ -109,6 +118,14 @@ public class UWar extends Game{
 //		rysowanie postaci gracza
 		batch.draw(player.getTexture(),player.x, player.y);
 
+//		Rysowanie strzałów
+		for (Shoot s : strzały) {
+//			batch.draw(s.getTexture(),player.x + player.getTexture().getWidth() / 2, player.y + player.getTexture().getHeight());
+			batch.draw(s.getTexture(), s.x, s.y);
+
+		}
+
+
 //		rysowanie potwora
 		batch.draw(monster.getTexture(), monster.x + monster.width/2, monster.y + monster.height/2);
 
@@ -119,6 +136,12 @@ public class UWar extends Game{
 //		font.draw(batch, "x: " + monster.x + "y: " + monster.y, camera.position.x - 490, camera.position.y + 470);
 
 		batch.end();
+
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	private void update() {
@@ -184,6 +207,29 @@ public class UWar extends Game{
 			timeHome = 0;
 		}
 
+//		STRZAŁY
+//		dodanie strzałów
+		timeShoot += Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+			if(timeShoot > 0.5){
+				strzały.add(new Shoot(player.x + player.getTexture().getWidth() / 2 - 5, player.y + player.getTexture().getHeight() / 2 - 5, 1));
+				timeShoot = 0;
+			}
+		}
+
+		for (Shoot s : strzały) {
+			s.y += 300 * Gdx.graphics.getDeltaTime();
+		}
+
+		for(Iterator<Shoot> it = strzały.iterator(); it.hasNext();) {
+			Shoot shoot = it.next();
+
+			if (shoot.y > 5000 || shoot.y < 0) {
+				System.out.println("weszło");
+				it.remove();
+
+			}
+		}
 //		ruch potwora
 		if(monster.getMoveQuantity() > 0){
 			monster.moveToBottom();
@@ -229,7 +275,6 @@ public class UWar extends Game{
 			player.x += 20;
 		}
 
-
 //		Zoom+
 		if(Gdx.input.isKeyPressed(Input.Keys.X)){
 			camera.zoom +=0.2;
@@ -239,7 +284,6 @@ public class UWar extends Game{
 		if(Gdx.input.isKeyPressed(Input.Keys.C)){
 			camera.zoom -=0.2;
 		}
-
 	}
 
 	@Override
