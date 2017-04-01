@@ -86,7 +86,7 @@ public class UWar extends Game{
 
 		super.render();
 
-		update();
+		update(Gdx.graphics.getDeltaTime());
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -102,7 +102,7 @@ public class UWar extends Game{
 		batch.draw(home,2400,2400, home.getWidth(),home.getHeight());
 
 //		rysowanie postaci gracza
-		batch.draw(player.getTexture(),player.x, player.y);
+		batch.draw(player.getTexture(),player.getPozycja().x, player.getPozycja().y);
 
 //		Rysowanie strzałów
 		for (Shoot s : strzaly) {
@@ -120,7 +120,7 @@ public class UWar extends Game{
 		batch.end();
 	}
 
-	private void update() {
+	private void update(float dt) {
 
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
@@ -266,23 +266,27 @@ public class UWar extends Game{
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.W) && player.y < 5000-2*player.radius){
-			player.y += 250 * Gdx.graphics.getDeltaTime();
-			player.setDirection(1);
+			player.goMoveToTop(Gdx.graphics.getDeltaTime());
+//			player.y += 250 * Gdx.graphics.getDeltaTime();
+//			player.setDirection(1);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.S) && player.y > 0){
-			player.y -= 250 * Gdx.graphics.getDeltaTime();
-			player.setDirection(3);
+			player.goMoveToBottom(Gdx.graphics.getDeltaTime());
+//			player.y -= 250 * Gdx.graphics.getDeltaTime();
+//			player.setDirection(3);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.A) && player.x > 0){
-			player.x -= 250 * Gdx.graphics.getDeltaTime();
-			player.setDirection(0);
+			player.goMoveToLeft(Gdx.graphics.getDeltaTime());
+//			player.x -= 250 * Gdx.graphics.getDeltaTime();
+//			player.setDirection(0);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.D) && player.x < 5000-2*player.radius) {
-			player.x += 250 * Gdx.graphics.getDeltaTime();
-			player.setDirection(2);
+			player.goMoveToRight(Gdx.graphics.getDeltaTime());
+//			player.x += 250 * Gdx.graphics.getDeltaTime();
+//			player.setDirection(2);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
