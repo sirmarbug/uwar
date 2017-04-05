@@ -102,7 +102,7 @@ public class UWar extends Game{
 		batch.draw(home,2400,2400, home.getWidth(),home.getHeight());
 
 //		rysowanie postaci gracza
-		batch.draw(player.getTexture(),player.getPozycja().x, player.getPozycja().y);
+		batch.draw(player.getTexture(),player.x, player.y);
 
 //		Rysowanie strzałów
 		for (Shoot s : strzaly) {
@@ -186,7 +186,7 @@ public class UWar extends Game{
 //		STRZAŁY
 //		dodanie strzałów
 		timeShoot += Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+		if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 			if(timeShoot > 0.2){
 				strzaly.add(new Shoot(player.x + player.getTexture().getWidth() / 2 - 5, player.y + player.getTexture().getHeight() / 2 - 5, 1, player.getDirection()));
 				timeShoot = 0;
@@ -205,6 +205,26 @@ public class UWar extends Game{
 			}
 			if(s.getDirection() == 3){
 				s.y -= 300 * Gdx.graphics.getDeltaTime();
+			}
+
+			if(s.getDirection() == 4){
+				s.x += 200 * Gdx.graphics.getDeltaTime();
+				s.y += 200 * Gdx.graphics.getDeltaTime();
+			}
+
+			if(s.getDirection() == 5){
+				s.x -= 200 * Gdx.graphics.getDeltaTime();
+				s.y += 200 * Gdx.graphics.getDeltaTime();
+			}
+
+			if(s.getDirection() == 6){
+				s.x += 200 * Gdx.graphics.getDeltaTime();
+				s.y -= 200 * Gdx.graphics.getDeltaTime();
+			}
+
+			if(s.getDirection() == 7){
+				s.x -= 200 * Gdx.graphics.getDeltaTime();
+				s.y -= 200 * Gdx.graphics.getDeltaTime();
 			}
 		}
 
@@ -268,13 +288,11 @@ public class UWar extends Game{
 		if(Gdx.input.isKeyPressed(Input.Keys.W) && player.y < 5000-2*player.radius){
 			player.goMoveToTop(Gdx.graphics.getDeltaTime());
 //			player.y += 250 * Gdx.graphics.getDeltaTime();
-//			player.setDirection(1);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.S) && player.y > 0){
 			player.goMoveToBottom(Gdx.graphics.getDeltaTime());
 //			player.y -= 250 * Gdx.graphics.getDeltaTime();
-//			player.setDirection(3);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.A) && player.x > 0){
@@ -286,11 +304,43 @@ public class UWar extends Game{
 		if(Gdx.input.isKeyPressed(Input.Keys.D) && player.x < 5000-2*player.radius) {
 			player.goMoveToRight(Gdx.graphics.getDeltaTime());
 //			player.x += 250 * Gdx.graphics.getDeltaTime();
-//			player.setDirection(2);
 		}
 
 		if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
 			player.x += 20;
+		}
+
+//		Kierowanie strzałem
+		if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+			player.setDirection(1);
+		}
+
+		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+			player.setDirection(3);
+		}
+
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+			player.setDirection(2);
+		}
+
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+			player.setDirection(0);
+		}
+
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.x < 5000-2*player.radius && Gdx.input.isKeyPressed(Input.Keys.UP)) {
+			player.setDirection(4);
+		}
+
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.x < 5000-2*player.radius && Gdx.input.isKeyPressed(Input.Keys.UP)) {
+			player.setDirection(5);
+		}
+
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.x < 5000-2*player.radius && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			player.setDirection(6);
+		}
+
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.x < 5000-2*player.radius && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			player.setDirection(7);
 		}
 
 //		Zoom-

@@ -122,7 +122,7 @@ public class Player extends Circle{
         this.ruch = ruch;
     }
 
-    public void goMove(Vector2 nowaPozycja, float dt){
+    public void goMove(Vector2 nowaPozycja, int direction, float dt){
         wektor.set(nowaPozycja).sub(pozycja).nor();
         szybkosc.set(wektor).scl(speed);
         ruch.set(szybkosc).scl(dt);
@@ -132,27 +132,28 @@ public class Player extends Circle{
         }else{
             pozycja.set(nowaPozycja);
         }
+//        this.direction = direction;
         setX(pozycja.x);
         setY(pozycja.y);
     }
 
     public void goMoveToLeft(float dt){
         nowaPozycja.set(pozycja.x - 100, pozycja.y);
-        goMove(nowaPozycja, dt);
+        goMove(nowaPozycja, 0,dt);
     }
 
     public void goMoveToRight(float dt){
         nowaPozycja.set(pozycja.x + 100, pozycja.y);
-        goMove(nowaPozycja, dt);
+        goMove(nowaPozycja, 2, dt);
     }
 
     public void goMoveToTop(float dt){
         nowaPozycja.set(pozycja.x, pozycja.y + 100);
-        goMove(nowaPozycja, dt);
+        goMove(nowaPozycja, 1, dt);
     }
 
     public void goMoveToBottom(float dt){
         nowaPozycja.set(pozycja.x, pozycja.y - 100);
-        goMove(nowaPozycja, dt);
+        goMove(nowaPozycja, 3, dt);
     }
 }
