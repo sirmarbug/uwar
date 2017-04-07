@@ -15,9 +15,10 @@ import java.util.*;
 public class UWar extends Game{
 	private SpriteBatch batch;
 	private Player player;
+	private Baza baza;
 	private OrthographicCamera camera;
 	private Texture texture;
-	private Texture home;
+//	private Texture home;
 	private float timeHome;
 	private float timeShoot;
 	private float timerMonster;
@@ -50,6 +51,8 @@ public class UWar extends Game{
 //		Random
 		r = new Random();
 
+		baza = new Baza();
+
 //		Kamera i jej ustawienia
 		camera = new OrthographicCamera(5000,5000);
 		camera.zoom = (float) 0.2;
@@ -69,11 +72,11 @@ public class UWar extends Game{
 		pixmap.dispose();
 
 //		Utworzenie wyglądu bazy
-		pixmap = new Pixmap(200,200, Pixmap.Format.RGBA8888);
-		pixmap.setColor(Color.GREEN);
-		pixmap.fillRectangle(0,0,200,200);
-		home = new Texture(pixmap);
-		pixmap.dispose();
+//		pixmap = new Pixmap(200,200, Pixmap.Format.RGBA8888);
+//		pixmap.setColor(Color.GREEN);
+//		pixmap.fillRectangle(0,0,200,200);
+//		home = new Texture(pixmap);
+//		pixmap.dispose();
 
 //		TimerHome
 		timeHome = 0;
@@ -104,7 +107,8 @@ public class UWar extends Game{
 		batch.draw(texture,0,0);
 
 //		obszar bazy
-		batch.draw(home,2400,2400, home.getWidth(),home.getHeight());
+		batch.draw(baza.getTexture(), baza.getX(), baza.getY(),baza.getWidth(), baza.getHeight());
+//		batch.draw(home,2400,2400, home.getWidth(),home.getHeight());
 
 //		rysowanie postaci gracza
 		batch.draw(player.getTexture(),player.x, player.y);
@@ -143,6 +147,9 @@ public class UWar extends Game{
 
 //		ustawienie obecnego wyniku
 		myinterface.setScore(player.getScore() + "");
+
+//		ustawienie życia bazy
+		myinterface.setBaza("Baza: " + baza.getHp());
 
 //		ustawienie kamery tak aby mapa była maksymalnie do krańców ekranu
 //		ustawienie kamery z lewej strony i prawej strony
@@ -196,8 +203,8 @@ public class UWar extends Game{
 //		STRZAŁY
 //		Dodawanie strzałów potorów
 		for (Monster m : potwory) {
-			int l1 = r.nextInt(10);
-			int l2 = r.nextInt(10);
+			int l1 = r.nextInt(100);
+			int l2 = r.nextInt(100);
 			if(l1 == l2){
 				int kierunek = r.nextInt(4);
 				strzalyPotworow.add(new Shoot(m.x + m.getTexture().getWidth() / 2 - 5, m.y + m.getTexture().getHeight() / 2 - 5, 1, kierunek));
@@ -379,13 +386,17 @@ public class UWar extends Game{
 			}
 		}
 
-//		Strzał potwora - bohater
+//		Strzał potwora - bohatera/bazy
 		for(Iterator<Shoot> it = strzalyPotworow.iterator(); it.hasNext();) {
 			Shoot shoot = it.next();
 			Rectangle rec = new Rectangle(player.x - player.radius, player.y - player.radius, player.radius * 2,player.radius * 2);
 			if(shoot.overlaps(rec)){
 				it.remove();
 				player.setHp(player.getHp() - 1);
+			}
+			if(shoot.overlaps(baza)){
+				it.remove();
+				baza.setHp(baza.getHp() - 1);
 			}
 		}
 
@@ -475,7 +486,7 @@ public class UWar extends Game{
 		player.getTexture().dispose();
 		font.dispose();
 		texture.dispose();
-		home.dispose();
+//		home.dispose();
 		stage.dispose();
 	}
 }
