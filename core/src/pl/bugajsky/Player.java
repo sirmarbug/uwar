@@ -28,7 +28,7 @@ public class Player extends Circle{
         super(x,y,10);
         hp = 90;
         score = 0;
-        speed = 170;
+        speed = 250;
         direction = 0;
         pozycja = new Vector2(x, y);
         nowaPozycja = new Vector2();

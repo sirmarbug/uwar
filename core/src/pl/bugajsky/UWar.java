@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -24,6 +25,7 @@ public class UWar extends Game{
 	private Random r;
 //	lista strzałów
 	private LinkedList<Shoot> strzaly; //lista strzałów
+	private LinkedList<Shoot> strzalyPotworow; // lsita strzałów potworów
 	private LinkedList<Monster> potwory; //lista potworów
 //	Zmienna wyświetlająca obecną pozycję
  	private BitmapFont font;
@@ -38,6 +40,9 @@ public class UWar extends Game{
 
 //		Inicjalizacja strzałów
 		strzaly = new LinkedList<Shoot>();
+
+//		Inicjalizacja strzałów
+		strzalyPotworow = new LinkedList<Shoot>();
 
 //		Inicjalizacja potworów
 		potwory = new LinkedList<Monster>();
@@ -106,6 +111,11 @@ public class UWar extends Game{
 
 //		Rysowanie strzałów
 		for (Shoot s : strzaly) {
+			batch.draw(s.getTexture(), s.x, s.y);
+		}
+
+//		Rysowanie strzałów potworów
+		for (Shoot s : strzalyPotworow) {
 			batch.draw(s.getTexture(), s.x, s.y);
 		}
 
@@ -184,9 +194,54 @@ public class UWar extends Game{
 		}
 
 //		STRZAŁY
+//		Dodawanie strzałów potorów
+		for (Monster m : potwory) {
+			int l1 = r.nextInt(10);
+			int l2 = r.nextInt(10);
+			if(l1 == l2){
+				int kierunek = r.nextInt(4);
+				strzalyPotworow.add(new Shoot(m.x + m.getTexture().getWidth() / 2 - 5, m.y + m.getTexture().getHeight() / 2 - 5, 1, kierunek));
+			}
+		}
+
+
 //		dodanie strzałów
 		timeShoot += Gdx.graphics.getDeltaTime();
 		if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+
+//		Kierowanie strzałem
+			if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+				player.setDirection(1);
+			}
+
+			if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+				player.setDirection(3);
+			}
+
+			if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+				player.setDirection(2);
+			}
+
+			if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+				player.setDirection(0);
+			}
+
+			if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.x < 5000-2*player.radius && Gdx.input.isKeyPressed(Input.Keys.UP)) {
+//				player.setDirection(4);
+			}
+
+			if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.x < 5000-2*player.radius && Gdx.input.isKeyPressed(Input.Keys.UP)) {
+//				player.setDirection(5);
+			}
+
+			if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.x < 5000-2*player.radius && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+//				player.setDirection(6);
+			}
+
+			if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.x < 5000-2*player.radius && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+//				player.setDirection(7);
+			}
+
 			if(timeShoot > 0.2){
 				strzaly.add(new Shoot(player.x + player.getTexture().getWidth() / 2 - 5, player.y + player.getTexture().getHeight() / 2 - 5, 1, player.getDirection()));
 				timeShoot = 0;
@@ -195,36 +250,71 @@ public class UWar extends Game{
 
 		for (Shoot s : strzaly) {
 			if(s.getDirection() == 0){
-				s.x -= 300 * Gdx.graphics.getDeltaTime();
+				s.x -= 400 * Gdx.graphics.getDeltaTime();
 			}
 			if(s.getDirection() == 1){
-				s.y += 300 * Gdx.graphics.getDeltaTime();
+				s.y += 400 * Gdx.graphics.getDeltaTime();
 			}
 			if(s.getDirection() == 2){
-				s.x += 300 * Gdx.graphics.getDeltaTime();
+				s.x += 400 * Gdx.graphics.getDeltaTime();
 			}
 			if(s.getDirection() == 3){
-				s.y -= 300 * Gdx.graphics.getDeltaTime();
+				s.y -= 400 * Gdx.graphics.getDeltaTime();
 			}
 
 			if(s.getDirection() == 4){
-				s.x += 200 * Gdx.graphics.getDeltaTime();
-				s.y += 200 * Gdx.graphics.getDeltaTime();
+				s.x += 400 * Gdx.graphics.getDeltaTime();
+				s.y += 400 * Gdx.graphics.getDeltaTime();
 			}
 
 			if(s.getDirection() == 5){
-				s.x -= 200 * Gdx.graphics.getDeltaTime();
-				s.y += 200 * Gdx.graphics.getDeltaTime();
+				s.x -= 400 * Gdx.graphics.getDeltaTime();
+				s.y += 400 * Gdx.graphics.getDeltaTime();
 			}
 
 			if(s.getDirection() == 6){
-				s.x += 200 * Gdx.graphics.getDeltaTime();
-				s.y -= 200 * Gdx.graphics.getDeltaTime();
+				s.x += 400 * Gdx.graphics.getDeltaTime();
+				s.y -= 400 * Gdx.graphics.getDeltaTime();
 			}
 
 			if(s.getDirection() == 7){
-				s.x -= 200 * Gdx.graphics.getDeltaTime();
-				s.y -= 200 * Gdx.graphics.getDeltaTime();
+				s.x -= 400 * Gdx.graphics.getDeltaTime();
+				s.y -= 400 * Gdx.graphics.getDeltaTime();
+			}
+		}
+
+		for (Shoot s : strzalyPotworow) {
+			if(s.getDirection() == 0){
+				s.x -= 400 * Gdx.graphics.getDeltaTime();
+			}
+			if(s.getDirection() == 1){
+				s.y += 400 * Gdx.graphics.getDeltaTime();
+			}
+			if(s.getDirection() == 2){
+				s.x += 400 * Gdx.graphics.getDeltaTime();
+			}
+			if(s.getDirection() == 3){
+				s.y -= 400 * Gdx.graphics.getDeltaTime();
+			}
+
+			if(s.getDirection() == 4){
+				s.x += 400 * Gdx.graphics.getDeltaTime();
+				s.y += 400 * Gdx.graphics.getDeltaTime();
+			}
+
+			if(s.getDirection() == 5){
+				s.x -= 400 * Gdx.graphics.getDeltaTime();
+				s.y += 400 * Gdx.graphics.getDeltaTime();
+			}
+
+			if(s.getDirection() == 6){
+				s.x += 400 * Gdx.graphics.getDeltaTime();
+				s.y -= 400 * Gdx.graphics.getDeltaTime();
+			}
+
+			if(s.getDirection() == 7){
+				s.x -= 400 * Gdx.graphics.getDeltaTime();
+				s.y -= 400 * Gdx.graphics.getDeltaTime();
 			}
 		}
 
@@ -236,9 +326,18 @@ public class UWar extends Game{
 			}
 		}
 
+//		ograniczenie pola strzałów potworów do mapy gry
+		for(Iterator<Shoot> it = strzalyPotworow.iterator(); it.hasNext();) {
+			Shoot shoot = it.next();
+			if (shoot.y > 5000 || shoot.y < 0 || shoot.x > 5000 || shoot.x < 0) {
+				it.remove();
+			}
+		}
+
 //		POTWORY
 		timerMonster += Gdx.graphics.getDeltaTime();
 			if(timerMonster > 1){
+				if(potwory.size() < 10)
 				potwory.add(new Monster(r.nextInt(5000),r.nextInt(5000)));
 				timerMonster = 0;
 			}
@@ -277,6 +376,16 @@ public class UWar extends Game{
 					}
 					it.remove();
 				}
+			}
+		}
+
+//		Strzał potwora - bohater
+		for(Iterator<Shoot> it = strzalyPotworow.iterator(); it.hasNext();) {
+			Shoot shoot = it.next();
+			Rectangle rec = new Rectangle(player.x - player.radius, player.y - player.radius, player.radius * 2,player.radius * 2);
+			if(shoot.overlaps(rec)){
+				it.remove();
+				player.setHp(player.getHp() - 1);
 			}
 		}
 
