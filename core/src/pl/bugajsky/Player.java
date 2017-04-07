@@ -26,7 +26,7 @@ public class Player extends Circle{
 
     public Player(float x, float y){
         super(x,y,10);
-        hp = 90;
+        hp = 20;
         score = 0;
         speed = 250;
         direction = 0;
