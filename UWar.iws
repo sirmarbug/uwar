@@ -75,8 +75,8 @@
       <file leaf-file-name="UWar.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/UWar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2704">
-              <caret line="393" column="34" lean-forward="false" selection-start-line="393" selection-start-column="34" selection-end-line="393" selection-end-column="34" />
+            <state relative-caret-position="338">
+              <caret line="398" column="31" lean-forward="false" selection-start-line="398" selection-start-column="31" selection-end-line="398" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -795,13 +795,13 @@
       <workItem from="1491384922515" duration="2545000" />
       <workItem from="1491412642556" duration="373000" />
       <workItem from="1491531757617" duration="98000" />
-      <workItem from="1491560470596" duration="9296000" />
+      <workItem from="1491560470596" duration="9476000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
     <option name="enabled" value="true" />
-    <option name="totallyTimeSpent" value="92975000" />
+    <option name="totallyTimeSpent" value="93155000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
@@ -1329,8 +1329,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/UWar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2704">
-          <caret line="393" column="34" lean-forward="false" selection-start-line="393" selection-start-column="34" selection-end-line="393" selection-end-column="34" />
+        <state relative-caret-position="338">
+          <caret line="398" column="31" lean-forward="false" selection-start-line="398" selection-start-column="31" selection-end-line="398" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

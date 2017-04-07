@@ -386,12 +386,17 @@ public class UWar extends Game{
 			}
 		}
 
-//		Potwór bohater
+//		Potwór bohater/baza
 		for(Iterator<Monster> pot = potwory.iterator(); pot.hasNext();) {
 			Monster p = pot.next();
 			Rectangle rec = new Rectangle(player.x - player.radius, player.y - player.radius, player.radius * 2,player.radius * 2);
 			if(p.overlaps(rec)){
 				player.setHp(player.getHp() - 10);
+				pot.remove();
+			}
+
+			if(p.overlaps(baza)){
+				baza.setHp(baza.getHp() - 10);
 				pot.remove();
 			}
 		}
