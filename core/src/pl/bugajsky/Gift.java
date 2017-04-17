@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -17,6 +19,7 @@ public class Gift extends Rectangle{
     private Texture texture;
     private Sprite sprite;
     private int animacja;
+    private float time;
 
     public Gift(int x, int y) {
         //		Rysowanie prezentu
@@ -27,9 +30,10 @@ public class Gift extends Rectangle{
         texture = new Texture(pixmap);
         sprite = new Sprite(texture);
         pixmap.dispose();
-//        animacja = 0;
         Random r = new Random();
-        this.type = r.nextInt();
+        type = r.nextInt(7);
+        time = 20;
+//        type = 11;
         sprite.setX(x);
         sprite.setY(y);
     }
@@ -74,7 +78,78 @@ public class Gift extends Rectangle{
         this.animacja = animacja;
     }
 
+    public float getTime() {
+        return time;
+    }
+
+    public void setTime(float time) {
+        this.time = time;
+    }
+
     public void animation(){
         getSprite().rotate(-2);
+    }
+
+    public void getGift(Player player, LinkedList<Monster> monsters, LinkedList<Shoot> shootsPlayer, LinkedList<Shoot> shootsMonster){
+        System.out.println(getType());
+//        if(getType() == 0){
+//            player.setHp(player.getHp() + 10);
+//        }else if(getType() == 1){
+//            player.setHp(player.getHp() - 10);
+//        }else if(getType() == 2){
+//            player.setSpeed(player.getSpeed() + 50);
+//        }else if(getType() == 3){
+//            player.setSpeed(player.getSpeed() - 50);
+//        }else if(getType() == 4){
+//            for (Shoot s : shootsPlayer) {
+//            }
+//        }else if(getType() == 5){
+//            for (Shoot s : shootsPlayer) {
+//            }
+//        }else if(getType() == 6){
+//
+//        }else if(getType() == 7){
+//            for (Monster monster : monsters) {
+//                monster.setSpeed(monster.getSpeed() + 50);
+//            }
+//        }else if(getType() == 8){
+//            for (Monster monster : monsters) {
+//                monster.setSpeed(monster.getSpeed() - 50);
+//            }
+//        }else if(getType() == 9){
+//            for (Shoot s : shootsMonster) {
+//            }
+//        }else if(getType() == 10){
+//            for (Shoot s : shootsMonster) {
+//            }
+//        }else if(getType() == 11){
+//            for(Iterator<Shoot> it = shootsMonster.iterator(); it.hasNext();) {
+//                Shoot shoot = it.next();
+//                it.remove();
+//            }
+//        }
+
+        if(getType() == 0){
+            player.setHp(player.getHp() + 10);
+        }else if(getType() == 1){
+            player.setHp(player.getHp() - 10);
+        }else if(getType() == 2){
+            player.setSpeed(player.getSpeed() + 50);
+        }else if(getType() == 3){
+            player.setSpeed(player.getSpeed() - 50);
+        }else if(getType() == 4){
+            for(Iterator<Shoot> it = shootsMonster.iterator(); it.hasNext();) {
+                Shoot shoot = it.next();
+                it.remove();
+            }
+        }else if(getType() == 5){
+            for (Monster monster : monsters) {
+                monster.setSpeed(monster.getSpeed() + 50);
+            }
+        }else if(getType() == 6){
+            for (Monster monster : monsters) {
+                monster.setSpeed(monster.getSpeed() - 50);
+            }
+        }
     }
 }

@@ -23,6 +23,8 @@ public class Player extends Circle{
     private int direction;
     private Texture texture;
     private Pixmap pixmap;
+    private float giftTime;
+    private int giftType;
 
     public Player(float x, float y){
         super(x,y,10);
@@ -30,6 +32,8 @@ public class Player extends Circle{
         score = 0;
         speed = 250;
         direction = 0;
+        giftTime = 1;
+        giftType = -1;
         pozycja = new Vector2(x, y);
         nowaPozycja = new Vector2();
         wektor = new Vector2();
@@ -74,7 +78,7 @@ public class Player extends Circle{
         this.pixmap = pixmap;
     }
 
-    public double getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 
@@ -120,6 +124,22 @@ public class Player extends Circle{
 
     public void setRuch(Vector2 ruch) {
         this.ruch = ruch;
+    }
+
+    public float getGiftTime() {
+        return giftTime;
+    }
+
+    public void setGiftTime(float giftTime) {
+        this.giftTime = giftTime;
+    }
+
+    public int getGiftType() {
+        return giftType;
+    }
+
+    public void setGiftType(int giftType) {
+        this.giftType = giftType;
     }
 
     public void goMove(Vector2 nowaPozycja, int direction, float dt){

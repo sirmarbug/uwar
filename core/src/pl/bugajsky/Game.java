@@ -539,12 +539,34 @@ public class Game implements Screen {
 //        Dodanie czasu od ostatniego prezentu
         timerGift += Gdx.graphics.getDeltaTime();
 
-//      Dodanie prezentu
+//      Dodanie prezentu na mapę
         int g1 = r.nextInt(1000);
         int g2 = r.nextInt(1000);
         if(g1 == g2 || timerGift > 100){
             giftLinkedList.add(new Gift(r.nextInt(5000), r.nextInt(5000)));
             timerGift = 0;
+        }
+
+//        sprawdzenie czasu obecnego prezentu
+        player.setGiftTime(player.getGiftTime() - Gdx.graphics.getDeltaTime());
+        if(player.getGiftTime() < 0 && player.getGiftType() != -1){
+            if(player.getGiftType() == 1){
+                player.setSpeed(player.getSpeed() - 50);
+            }else if(player.getGiftType() == 2){
+                player.setSpeed(player.getSpeed() + 50);
+            }else if(player.getGiftType() == 5){
+                for (Monster monster : potwory) {
+                    monster.setSpeed(monster.getSpeed() - 50);
+                }
+            }else if(player.getGiftType() == 6){
+                for (Monster monster : potwory) {
+                    monster.setSpeed(monster.getSpeed() + 50);
+                }
+            }
+
+            System.out.println("Usuń bonus");
+            player.setGiftType(-1);
+            player.setGiftTime(1);
         }
 
 //      Kolizje
@@ -553,8 +575,14 @@ public class Game implements Screen {
             Gift gift = it.next();
             Rectangle rec = new Rectangle(player.x - player.radius, player.y - player.radius, player.radius * 2,player.radius * 2);
             if(gift.overlaps(rec)){
-                it.remove();
-                player.setHp(100);
+                if(player.getGiftType() == -1){
+                    if(gift.getType() == 2 || gift.getType() == 3 || gift.getType() == 5 || gift.getType() == 6){
+                        player.setGiftTime(15);
+                        player.setGiftType(gift.getType());
+                    }
+                    it.remove();
+                    gift.getGift(player, potwory, strzaly,strzalyPotworow);
+                }
             }
         }
 
@@ -591,6 +619,15 @@ public class Game implements Screen {
                     giftIterator.remove();
                     shootIterator.remove();
                 }
+            }
+        }
+
+//        czas po którym prezent znika
+        for(Iterator<Gift> giftIterator = giftLinkedList.iterator(); giftIterator.hasNext();) {
+            Gift gift = giftIterator.next();
+            gift.setTime(gift.getTime() - Gdx.graphics.getDeltaTime());
+            if(gift.getTime() < 0){
+                giftIterator.remove();
             }
         }
 
