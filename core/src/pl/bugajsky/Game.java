@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -26,16 +27,20 @@ public class Game implements Screen {
     private Baza baza;
     private OrthographicCamera camera;
     private Texture texture;
+//    private Texture giftTexture;
+//    private Sprite giftSprite;
     //	private Texture home;
     private float timeHome;
     private float timeShoot;
     private float timerMonster;
+    private float timerGift;
     private Pixmap pixmap;
     private Random r;
     //	lista strzałów
     private LinkedList<Shoot> strzaly; //lista strzałów
     private LinkedList<Shoot> strzalyPotworow; // lsita strzałów potworów
     private LinkedList<Monster> potwory; //lista potworów
+    private LinkedList<Gift> giftLinkedList; //lista potworów
     //	Zmienna wyświetlająca obecną pozycję
     private BitmapFont font;
     private Stage stage;
@@ -56,6 +61,9 @@ public class Game implements Screen {
 
 //		Inicjalizacja potworów
         potwory = new LinkedList<Monster>();
+
+//      Inicjalizacja prezentów
+        giftLinkedList = new LinkedList<Gift>();
 
 //		Random
         r = new Random();
@@ -92,6 +100,10 @@ public class Game implements Screen {
 
 //		TimerShoot
         timeShoot = 1;
+
+        timerMonster = 1;
+
+        timerGift = 0;
 
 //		napis
         font = new BitmapFont();
@@ -136,6 +148,11 @@ public class Game implements Screen {
 //		Rysowanie potworów z listy
         for (Monster m : potwory) {
             batch.draw(m.getTexture(), m.x, m.y);
+        }
+
+//      Rysowanie prezentów
+        for (Gift g : giftLinkedList) {
+            g.getSprite().draw(batch);
         }
 
 //		Wartość zooma
@@ -508,6 +525,75 @@ public class Game implements Screen {
 //				System.out.println(camera.zoom);
             }
         }
+
+//      Obsługa prezentu
+//      Rotaja
+        if(giftLinkedList != null){
+            for (Gift g : giftLinkedList) {
+                g.animation();
+                g.setX(g.getSprite().getX());
+                g.setY(g.getSprite().getY());
+            }
+        }
+
+//        Dodanie czasu od ostatniego prezentu
+        timerGift += Gdx.graphics.getDeltaTime();
+
+//      Dodanie prezentu
+        int g1 = r.nextInt(1000);
+        int g2 = r.nextInt(1000);
+        if(g1 == g2 || timerGift > 100){
+            giftLinkedList.add(new Gift(r.nextInt(5000), r.nextInt(5000)));
+            timerGift = 0;
+        }
+
+//      Kolizje
+//      Bohater - prezent
+        for(Iterator<Gift> it = giftLinkedList.iterator(); it.hasNext();) {
+            Gift gift = it.next();
+            Rectangle rec = new Rectangle(player.x - player.radius, player.y - player.radius, player.radius * 2,player.radius * 2);
+            if(gift.overlaps(rec)){
+                it.remove();
+                player.setHp(100);
+            }
+        }
+
+//        Kolizja potworek - prezent
+        for(Iterator<Gift> giftIterator = giftLinkedList.iterator(); giftIterator.hasNext();) {
+            Gift gift = giftIterator.next();
+            for(Iterator<Monster> monsterIterator = potwory.iterator(); monsterIterator.hasNext();) {
+                Monster monster = monsterIterator.next();
+                if(gift.overlaps(monster)){
+                    giftIterator.remove();
+                    monster.setHp(monster.getHp() - 1);
+                }
+            }
+        }
+
+//        Kolizja strzał Potworów - prezent
+        for(Iterator<Gift> giftIterator = giftLinkedList.iterator(); giftIterator.hasNext();) {
+            Gift gift = giftIterator.next();
+            for(Iterator<Shoot> shootIterator = strzalyPotworow.iterator(); shootIterator.hasNext();) {
+                Shoot shoot = shootIterator.next();
+                if(gift.overlaps(shoot)){
+                    giftIterator.remove();
+                    shootIterator.remove();
+                }
+            }
+        }
+
+//        Kolizja strzał - prezent
+        for(Iterator<Gift> giftIterator = giftLinkedList.iterator(); giftIterator.hasNext();) {
+            Gift gift = giftIterator.next();
+            for(Iterator<Shoot> shootIterator = strzaly.iterator(); shootIterator.hasNext();) {
+                Shoot shoot = shootIterator.next();
+                if(gift.overlaps(shoot)){
+                    giftIterator.remove();
+                    shootIterator.remove();
+                }
+            }
+        }
+
     }
 
     @Override

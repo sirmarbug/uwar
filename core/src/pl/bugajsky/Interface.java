@@ -14,12 +14,20 @@ public class Interface extends Actor{
     private String score;
     private String life;
     private String baza;
-    BitmapFont playerFont = new BitmapFont();
-    BitmapFont scoreFont = new BitmapFont();
-    BitmapFont lifeFont = new BitmapFont();
-    BitmapFont bazaFont = new BitmapFont();
+    private BitmapFont playerFont;
+    private BitmapFont scoreFont;
+    private BitmapFont lifeFont;
+    private BitmapFont bazaFont;
 
     public Interface(){
+        playerFont = new BitmapFont();
+        scoreFont = new BitmapFont();
+        lifeFont = new BitmapFont();
+        bazaFont = new BitmapFont();
+        playerFont.setColor(Color.WHITE);
+        scoreFont.setColor(Color.WHITE);
+        lifeFont.setColor(Color.WHITE);
+        bazaFont.setColor(Color.WHITE);
     }
 
     public String getPlayer() {
@@ -56,13 +64,9 @@ public class Interface extends Actor{
 
     @Override
     public void draw(Batch batch, float parentAlpha){
-        playerFont.setColor(Color.WHITE);
         playerFont.draw(batch, player, 5, 475);
-        scoreFont.setColor(Color.WHITE);
         scoreFont.draw(batch, score, 300, 475);
-        lifeFont.setColor(Color.WHITE);
         lifeFont.draw(batch, life, 570, 475);
-        bazaFont.setColor(Color.WHITE);
         bazaFont.draw(batch, baza, 570, 450);
     }
 
