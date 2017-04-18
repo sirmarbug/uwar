@@ -14,20 +14,30 @@ public class Interface extends Actor{
     private String score;
     private String life;
     private String baza;
+    private String info;
+    private String gift;
     private BitmapFont playerFont;
     private BitmapFont scoreFont;
     private BitmapFont lifeFont;
     private BitmapFont bazaFont;
+    private BitmapFont infoFont;
+    private BitmapFont giftFont;
 
     public Interface(){
         playerFont = new BitmapFont();
         scoreFont = new BitmapFont();
         lifeFont = new BitmapFont();
         bazaFont = new BitmapFont();
+        infoFont = new BitmapFont();
+        giftFont = new BitmapFont();
         playerFont.setColor(Color.WHITE);
         scoreFont.setColor(Color.WHITE);
         lifeFont.setColor(Color.WHITE);
         bazaFont.setColor(Color.WHITE);
+        infoFont.setColor(Color.WHITE);
+        giftFont.setColor(Color.WHITE);
+        info = "";
+        gift = "";
     }
 
     public String getPlayer() {
@@ -62,12 +72,30 @@ public class Interface extends Actor{
         this.baza = baza;
     }
 
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getGift() {
+        return gift;
+    }
+
+    public void setGift(String gift) {
+        this.gift = gift;
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha){
         playerFont.draw(batch, player, 5, 475);
         scoreFont.draw(batch, score, 300, 475);
         lifeFont.draw(batch, life, 570, 475);
         bazaFont.draw(batch, baza, 570, 450);
+        infoFont.draw(batch, info, 150, 20);
+        giftFont.draw(batch, gift, 500, 425);
     }
 
 }

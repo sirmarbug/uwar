@@ -548,19 +548,31 @@ public class Game implements Screen {
         }
 
 //        sprawdzenie czasu obecnego prezentu
-        player.setGiftTime(player.getGiftTime() - Gdx.graphics.getDeltaTime());
+        if(player.getGiftTime() < 10 && player.getGiftType() != -1){
+            myinterface.setInfo("");
+        }
+
+        if(player.getGiftType() != -1){
+            player.setGiftTime(player.getGiftTime() - Gdx.graphics.getDeltaTime());
+            myinterface.setGift("Bonus: " + player.getGiftTime());
+        }
+
         if(player.getGiftTime() < 0 && player.getGiftType() != -1){
             if(player.getGiftType() == 1){
                 player.setSpeed(player.getSpeed() - 50);
+                myinterface.setGift("");
             }else if(player.getGiftType() == 2){
                 player.setSpeed(player.getSpeed() + 50);
+                myinterface.setGift("");
             }else if(player.getGiftType() == 5){
                 for (Monster monster : potwory) {
-                    monster.setSpeed(monster.getSpeed() - 50);
+                    monster.setSpeed(monster.getSpeed() - 1);
+                    myinterface.setGift("");
                 }
             }else if(player.getGiftType() == 6){
                 for (Monster monster : potwory) {
-                    monster.setSpeed(monster.getSpeed() + 50);
+                    monster.setSpeed(monster.getSpeed() + 1);
+                    myinterface.setGift("");
                 }
             }
 
@@ -581,7 +593,7 @@ public class Game implements Screen {
                         player.setGiftType(gift.getType());
                     }
                     it.remove();
-                    gift.getGift(player, potwory, strzaly,strzalyPotworow);
+                    gift.getGift(player, potwory, strzaly,strzalyPotworow, myinterface);
                 }
             }
         }
