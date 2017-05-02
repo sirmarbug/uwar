@@ -537,8 +537,8 @@ public class Game implements Screen {
         timerGift += Gdx.graphics.getDeltaTime();
 
 //      Dodanie prezentu na mapę
-        int g1 = r.nextInt(1000);
-        int g2 = r.nextInt(1000);
+        int g1 = r.nextInt(10);
+        int g2 = r.nextInt(10);
         if(g1 == g2 || timerGift > 100){
             giftLinkedList.add(new Gift(r.nextInt(5000), r.nextInt(5000)));
             timerGift = 0;
@@ -559,10 +559,10 @@ public class Game implements Screen {
 
 //        Sprawdzenie czasu obencego prezentu
         if(player.getGiftTime() < 0 && player.getGiftType() != -1){
-            if(player.getGiftType() == 1){
+            if(player.getGiftType() == 2){
                 player.setSpeed(player.getSpeed() - 50);
                 myinterface.setGift("");
-            }else if(player.getGiftType() == 2){
+            }else if(player.getGiftType() == 3){
                 player.setSpeed(player.getSpeed() + 50);
                 myinterface.setGift("");
             }else if(player.getGiftType() == 5){
