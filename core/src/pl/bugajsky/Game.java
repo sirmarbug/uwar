@@ -321,7 +321,8 @@ public class Game implements Screen {
             int l1 = r.nextInt(100);
             int l2 = r.nextInt(100);
             if(l1 == l2){
-                int kierunek = r.nextInt(4);
+                int kierunek = m.generateDirectionShoot(player);
+//                int kierunek = r.nextInt(4);
                 strzalyPotworow.add(new Shoot(m.x + m.getTexture().getWidth() / 2 - 5, m.y + m.getTexture().getHeight() / 2 - 5, 1, kierunek));
             }
         }
@@ -472,7 +473,7 @@ public class Game implements Screen {
                 m.moveToTop();
                 m.setMoveQuantity(m.getMoveQuantity() - 1);
             } else {
-                m.generateMove();
+                m.generateMove(player);
                 m.moveToBottom();
                 m.moveToLeft();
                 m.moveToRight();

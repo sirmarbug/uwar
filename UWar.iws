@@ -7,6 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="555540f1-3ad6-4eb7-98ae-a88834ce8ebe" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/pl/bugajsky/Game.java" afterPath="$PROJECT_DIR$/core/src/pl/bugajsky/Game.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/pl/bugajsky/Monster.java" afterPath="$PROJECT_DIR$/core/src/pl/bugajsky/Monster.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -77,11 +78,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="466" column="18" lean-forward="true" selection-start-line="466" selection-start-column="18" selection-end-line="466" selection-end-column="18" />
+            <state relative-caret-position="115">
+              <caret line="323" column="62" lean-forward="false" selection-start-line="323" selection-start-column="62" selection-end-line="323" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,18 +90,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Monster.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Monster.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Monster.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="139" column="16" lean-forward="false" selection-start-line="139" selection-start-column="16" selection-end-line="139" selection-end-column="16" />
+            <state relative-caret-position="327">
+              <caret line="187" column="9" lean-forward="false" selection-start-line="187" selection-start-column="9" selection-end-line="187" selection-end-column="9" />
               <folding>
                 <element signature="e#2497#2498#0" expanded="true" />
                 <element signature="e#2524#2525#0" expanded="true" />
                 <element signature="e#2565#2566#0" expanded="true" />
                 <element signature="e#2597#2598#0" expanded="true" />
-                <element signature="e#3372#3373#0" expanded="true" />
-                <element signature="e#3400#3401#0" expanded="true" />
+                <element signature="e#4494#4495#0" expanded="true" />
+                <element signature="e#4522#4523#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -267,9 +268,7 @@
       <find>player.</find>
       <find>getHp</find>
       <find>myin</find>
-      <find>potwory</find>
       <find>timerMonster</find>
-      <find>strzalyPotworow</find>
       <find>giftLinkedList</find>
       <find>setSc</find>
       <find>giftLink</find>
@@ -281,6 +280,8 @@
       <find>getMakspotworow</find>
       <find>Pot</find>
       <find>Baza</find>
+      <find>potwory</find>
+      <find>strzalyPotworow</find>
     </findStrings>
     <replaceStrings>
       <replace>strzaly</replace>
@@ -310,8 +311,8 @@
         <option value="$PROJECT_DIR$/core/src/pl/bugajsky/Baza.java" />
         <option value="$PROJECT_DIR$/core/src/pl/bugajsky/Tura.java" />
         <option value="$PROJECT_DIR$/core/src/pl/bugajsky/Gift.java" />
-        <option value="$PROJECT_DIR$/core/src/pl/bugajsky/Game.java" />
         <option value="$PROJECT_DIR$/core/src/pl/bugajsky/Monster.java" />
+        <option value="$PROJECT_DIR$/core/src/pl/bugajsky/Game.java" />
       </list>
     </option>
   </component>
@@ -934,13 +935,13 @@
       <workItem from="1492799581756" duration="462000" />
       <workItem from="1492966168114" duration="2656000" />
       <workItem from="1493577587365" duration="47000" />
-      <workItem from="1493704742552" duration="16609000" />
+      <workItem from="1493704742552" duration="17902000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
     <option name="enabled" value="true" />
-    <option name="totallyTimeSpent" value="144966000" />
+    <option name="totallyTimeSpent" value="146259000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
@@ -1039,8 +1040,8 @@
             <element signature="e#2524#2525#0" expanded="true" />
             <element signature="e#2565#2566#0" expanded="true" />
             <element signature="e#2597#2598#0" expanded="true" />
-            <element signature="e#3372#3373#0" expanded="true" />
-            <element signature="e#3400#3401#0" expanded="true" />
+            <element signature="e#4494#4495#0" expanded="true" />
+            <element signature="e#4522#4523#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1092,8 +1093,8 @@
             <element signature="e#2524#2525#0" expanded="true" />
             <element signature="e#2565#2566#0" expanded="true" />
             <element signature="e#2597#2598#0" expanded="true" />
-            <element signature="e#3372#3373#0" expanded="true" />
-            <element signature="e#3400#3401#0" expanded="true" />
+            <element signature="e#4494#4495#0" expanded="true" />
+            <element signature="e#4522#4523#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1145,8 +1146,8 @@
             <element signature="e#2524#2525#0" expanded="true" />
             <element signature="e#2565#2566#0" expanded="true" />
             <element signature="e#2597#2598#0" expanded="true" />
-            <element signature="e#3372#3373#0" expanded="true" />
-            <element signature="e#3400#3401#0" expanded="true" />
+            <element signature="e#4494#4495#0" expanded="true" />
+            <element signature="e#4522#4523#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1560,27 +1561,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="466" column="18" lean-forward="true" selection-start-line="466" selection-start-column="18" selection-end-line="466" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Monster.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="139" column="16" lean-forward="false" selection-start-line="139" selection-start-column="16" selection-end-line="139" selection-end-column="16" />
+        <state relative-caret-position="327">
+          <caret line="187" column="9" lean-forward="false" selection-start-line="187" selection-start-column="9" selection-end-line="187" selection-end-column="9" />
           <folding>
             <element signature="e#2497#2498#0" expanded="true" />
             <element signature="e#2524#2525#0" expanded="true" />
             <element signature="e#2565#2566#0" expanded="true" />
             <element signature="e#2597#2598#0" expanded="true" />
-            <element signature="e#3372#3373#0" expanded="true" />
-            <element signature="e#3400#3401#0" expanded="true" />
+            <element signature="e#4494#4495#0" expanded="true" />
+            <element signature="e#4522#4523#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="323" column="62" lean-forward="false" selection-start-line="323" selection-start-column="62" selection-end-line="323" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

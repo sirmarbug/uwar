@@ -141,13 +141,52 @@ public class Monster extends Rectangle{
         }
     }
 
-//    generowanie nowych ruchów
+    //    generowanie nowych ruchów
     public void generateMove(){
         if(moveQuantity == 0){
             moveDirection = r.nextInt(4);
             moveQuantity = r.nextInt(5)+1;
         }
     }
+
+//    generowanie nowych ruchów na bazie położenia bohatera
+    public void generateMove(Player player){
+        if(moveQuantity == 0){
+            boolean kierunek = r.nextBoolean();
+            if(kierunek == false){
+                if(x > player.getPozycja().x){
+                    moveDirection = 0;
+                }else{
+                    moveDirection = 2;
+                }
+            }else{
+                if(y > player.getPozycja().y){
+                    moveDirection = 3;
+                }else{
+                    moveDirection = 1;
+                }
+            }
+            moveQuantity = r.nextInt(5)+1;
+        }
+    }
+
+//    Generowanie kierunku strzału na podstawie położenia gracza
+public int generateDirectionShoot(Player player){
+        boolean kierunek = r.nextBoolean();
+        if(kierunek == false){
+            if(x > player.getPozycja().x){
+                return 0;
+            }else{
+                return 2;
+            }
+        }else{
+            if(y > player.getPozycja().y){
+                return 3;
+            }else{
+                return 1;
+            }
+        }
+}
 
     public int getScore() {
         return score;
