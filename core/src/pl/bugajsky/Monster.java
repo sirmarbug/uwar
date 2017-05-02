@@ -115,25 +115,29 @@ public class Monster extends Rectangle{
 
     public void moveToLeft(){
         if(moveDirection == 0){
-            x -= speed;
+            if(x > 0)
+                x -= speed;
         }
     }
 
     public void moveToRight(){
         if(moveDirection == 2){
-            x += speed;
+            if(x < 5000)
+                x += speed;
         }
     }
 
     public void moveToTop(){
         if(moveDirection == 1){
-            y += speed;
+            if(y < 5000)
+                y += speed;
         }
     }
 
     public void moveToBottom(){
         if(moveDirection == 3){
-            y -= speed;
+            if(y > 0)
+                y -= speed;
         }
     }
 
