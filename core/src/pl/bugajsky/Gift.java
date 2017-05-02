@@ -31,6 +31,7 @@ public class Gift extends Rectangle{
         sprite = new Sprite(texture);
         pixmap.dispose();
         Random r = new Random();
+//        type = 0;
         type = r.nextInt(7);
         time = 20;
 //        type = 11;
@@ -91,71 +92,33 @@ public class Gift extends Rectangle{
     }
 
     public void getGift(Player player, LinkedList<Monster> monsters, LinkedList<Shoot> shootsPlayer, LinkedList<Shoot> shootsMonster, Interface myInterface){
-        System.out.println(getType());
-//        if(getType() == 0){
-//            player.setHp(player.getHp() + 10);
-//        }else if(getType() == 1){
-//            player.setHp(player.getHp() - 10);
-//        }else if(getType() == 2){
-//            player.setSpeed(player.getSpeed() + 50);
-//        }else if(getType() == 3){
-//            player.setSpeed(player.getSpeed() - 50);
-//        }else if(getType() == 4){
-//            for (Shoot s : shootsPlayer) {
-//            }
-//        }else if(getType() == 5){
-//            for (Shoot s : shootsPlayer) {
-//            }
-//        }else if(getType() == 6){
-//
-//        }else if(getType() == 7){
-//            for (Monster monster : monsters) {
-//                monster.setSpeed(monster.getSpeed() + 50);
-//            }
-//        }else if(getType() == 8){
-//            for (Monster monster : monsters) {
-//                monster.setSpeed(monster.getSpeed() - 50);
-//            }
-//        }else if(getType() == 9){
-//            for (Shoot s : shootsMonster) {
-//            }
-//        }else if(getType() == 10){
-//            for (Shoot s : shootsMonster) {
-//            }
-//        }else if(getType() == 11){
-//            for(Iterator<Shoot> it = shootsMonster.iterator(); it.hasNext();) {
-//                Shoot shoot = it.next();
-//                it.remove();
-//            }
-//        }
-
         if(getType() == 0){
             player.setHp(player.getHp() + 10);
-            myInterface.setInfo("Dodano 10pkt życia");
+            myInterface.setInfo("Dodano 10pkt zycia");
         }else if(getType() == 1){
             player.setHp(player.getHp() - 10);
-            myInterface.setInfo("Odjęto 10pkt życia");
+            myInterface.setInfo("Odjeto 10pkt zycia");
         }else if(getType() == 2){
             player.setSpeed(player.getSpeed() + 50);
-            myInterface.setInfo("Zwiększono szybkość gracza");
+            myInterface.setInfo("Zwiekszono szybkosc gracza");
         }else if(getType() == 3){
             player.setSpeed(player.getSpeed() - 50);
-            myInterface.setInfo("Zmniejszono szybkość gracza");
+            myInterface.setInfo("Zmniejszono szybkosc gracza");
         }else if(getType() == 4){
             for(Iterator<Shoot> it = shootsMonster.iterator(); it.hasNext();) {
                 Shoot shoot = it.next();
                 it.remove();
-                myInterface.setInfo("Usunięto wszystkie strzały wrogów");
+                myInterface.setInfo("Usunieto wszystkie strzaly wrogow");
             }
         }else if(getType() == 5){
             for (Monster monster : monsters) {
                 monster.setSpeed(monster.getSpeed() + 1);
-                myInterface.setInfo("Zwiększono szybkość wrogów");
+                myInterface.setInfo("Zwiekszono szybkosc wrogow");
             }
         }else if(getType() == 6){
             for (Monster monster : monsters) {
                 monster.setSpeed(monster.getSpeed() - 1);
-                myInterface.setInfo("Zmniejszono szybkość gracza");
+                myInterface.setInfo("Zmniejszono szybkosc wroga");
             }
         }
     }

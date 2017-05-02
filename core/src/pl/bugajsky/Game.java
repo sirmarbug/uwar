@@ -406,11 +406,8 @@ public class Game implements Screen {
                 Monster p = pot.next();
                 if (shoot.overlaps(p)) {
                     p.setHp(p.getHp() - shoot.getStrong());
-//					System.out.println("Życie: " + p.getHp());
                     if(p.getHp() < 1){
-//						System.out.println("weszło");
                         player.setScore(player.getScore() + p.getScore());
-                        System.out.println();
                         pot.remove();
                     }
                     it.remove();
@@ -552,11 +549,15 @@ public class Game implements Screen {
             myinterface.setInfo("");
         }
 
+//        Show bonus time
         if(player.getGiftType() != -1){
             player.setGiftTime(player.getGiftTime() - Gdx.graphics.getDeltaTime());
-            myinterface.setGift("Bonus: " + player.getGiftTime());
+            if(player.getGiftType() == 2 || player.getGiftType() == 3 || player.getGiftType() == 5 || player.getGiftType() == 6){
+                myinterface.setGift("Bonus: " + player.getGiftTime());
+            }
         }
 
+//        Sprawdzenie czasu obencego prezentu
         if(player.getGiftTime() < 0 && player.getGiftType() != -1){
             if(player.getGiftType() == 1){
                 player.setSpeed(player.getSpeed() - 50);
@@ -581,17 +582,18 @@ public class Game implements Screen {
             player.setGiftTime(1);
         }
 
-//      Kolizje
+//      Kolizje Z PREZENTEM
 //      Bohater - prezent
         for(Iterator<Gift> it = giftLinkedList.iterator(); it.hasNext();) {
             Gift gift = it.next();
             Rectangle rec = new Rectangle(player.x - player.radius, player.y - player.radius, player.radius * 2,player.radius * 2);
             if(gift.overlaps(rec)){
                 if(player.getGiftType() == -1){
-                    if(gift.getType() == 2 || gift.getType() == 3 || gift.getType() == 5 || gift.getType() == 6){
+//                    if(gift.getType() == 2 || gift.getType() == 3 || gift.getType() == 5 || gift.getType() == 6){
                         player.setGiftTime(15);
                         player.setGiftType(gift.getType());
-                    }
+//                    }
+//                    dfkngkdjs
                     it.remove();
                     gift.getGift(player, potwory, strzaly,strzalyPotworow, myinterface);
                 }
