@@ -25,12 +25,14 @@ public class Player extends Circle{
     private Pixmap pixmap;
     private float giftTime;
     private int giftType;
+    private float speedRun;
 
     public Player(float x, float y){
         super(x,y,10);
         hp = 20;
         score = 0;
         speed = 250;
+        speedRun = 250 + 50;
         direction = 0;
         giftTime = 1;
         giftType = -1;
@@ -142,17 +144,36 @@ public class Player extends Circle{
         this.giftType = giftType;
     }
 
+    public float getSpeedRun() {
+        return speedRun;
+    }
+
+    public void setSpeedRun(float speedRun) {
+        this.speedRun = speedRun;
+    }
+
     public void goMove(Vector2 nowaPozycja, int direction, float dt){
         wektor.set(nowaPozycja).sub(pozycja).nor();
         szybkosc.set(wektor).scl(speed);
         ruch.set(szybkosc).scl(dt);
         if(pozycja.dst2(nowaPozycja) > ruch.len2()){
             pozycja.add(ruch);
-//            System.out.println(pozycja);
         }else{
             pozycja.set(nowaPozycja);
         }
-//        this.direction = direction;
+        setX(pozycja.x);
+        setY(pozycja.y);
+    }
+
+    public void runMove(Vector2 nowaPozycja, int direction, float dt){
+        wektor.set(nowaPozycja).sub(pozycja).nor();
+        szybkosc.set(wektor).scl(speedRun);
+        ruch.set(szybkosc).scl(dt);
+        if(pozycja.dst2(nowaPozycja) > ruch.len2()){
+            pozycja.add(ruch);
+        }else{
+            pozycja.set(nowaPozycja);
+        }
         setX(pozycja.x);
         setY(pozycja.y);
     }
@@ -175,5 +196,25 @@ public class Player extends Circle{
     public void goMoveToBottom(float dt){
         nowaPozycja.set(pozycja.x, pozycja.y - 100);
         goMove(nowaPozycja, 3, dt);
+    }
+
+    public void runMoveToLeft(float dt){
+        nowaPozycja.set(pozycja.x - 100, pozycja.y);
+        runMove(nowaPozycja, 0,dt);
+    }
+
+    public void runMoveToRight(float dt){
+        nowaPozycja.set(pozycja.x + 100, pozycja.y);
+        runMove(nowaPozycja, 2, dt);
+    }
+
+    public void runMoveToTop(float dt){
+        nowaPozycja.set(pozycja.x, pozycja.y + 100);
+        runMove(nowaPozycja, 1, dt);
+    }
+
+    public void runMoveToBottom(float dt){
+        nowaPozycja.set(pozycja.x, pozycja.y - 100);
+        runMove(nowaPozycja, 3, dt);
     }
 }

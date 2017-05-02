@@ -445,6 +445,7 @@ public class Game implements Screen {
         }
 
 //		sterowanie
+//        chodzenia
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             Gdx.app.exit();
         }
@@ -469,6 +470,28 @@ public class Game implements Screen {
             player.goMoveToRight(Gdx.graphics.getDeltaTime());
 //			player.x += 250 * Gdx.graphics.getDeltaTime();
         }
+
+//        Bieganie
+        if(Gdx.input.isKeyPressed(Input.Keys.W) && player.y > 0 && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+            System.out.println("weszło");
+            player.runMoveToTop(Gdx.graphics.getDeltaTime());
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.S) && player.y > 0 && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+            System.out.println("weszło");
+            player.runMoveToBottom(Gdx.graphics.getDeltaTime());
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.A) && player.x > 0 && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+            System.out.println("weszło");
+            player.runMoveToLeft(Gdx.graphics.getDeltaTime());
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+            System.out.println("weszło");
+            player.runMoveToRight(Gdx.graphics.getDeltaTime());
+        }
+
 
         if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
             player.x += 20;
@@ -537,8 +560,8 @@ public class Game implements Screen {
         timerGift += Gdx.graphics.getDeltaTime();
 
 //      Dodanie prezentu na mapę
-        int g1 = r.nextInt(10);
-        int g2 = r.nextInt(10);
+        int g1 = r.nextInt(1000);
+        int g2 = r.nextInt(1000);
         if(g1 == g2 || timerGift > 100){
             giftLinkedList.add(new Gift(r.nextInt(5000), r.nextInt(5000)));
             timerGift = 0;
