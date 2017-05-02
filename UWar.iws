@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="desktop:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="555540f1-3ad6-4eb7-98ae-a88834ce8ebe" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/pl/bugajsky/Game.java" afterPath="$PROJECT_DIR$/core/src/pl/bugajsky/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/pl/bugajsky/Monster.java" afterPath="$PROJECT_DIR$/core/src/pl/bugajsky/Monster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/pl/bugajsky/Tura.java" afterPath="$PROJECT_DIR$/core/src/pl/bugajsky/Tura.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UWar.ipr" afterPath="$PROJECT_DIR$/UWar.ipr" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -922,13 +925,13 @@
       <workItem from="1492799581756" duration="462000" />
       <workItem from="1492966168114" duration="2656000" />
       <workItem from="1493577587365" duration="47000" />
-      <workItem from="1493704742552" duration="11106000" />
+      <workItem from="1493704742552" duration="11967000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
     <option name="enabled" value="true" />
-    <option name="totallyTimeSpent" value="139463000" />
+    <option name="totallyTimeSpent" value="140324000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
@@ -1542,11 +1545,12 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>unnamed</last-edited>
+          <last-edited>desktop:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
