@@ -222,31 +222,64 @@ public class Game implements Screen {
         }
 
 //        TURA
-        tura.setTime(tura.getTime() - Gdx.graphics.getDeltaTime());
-//        System.out.println(turaTimer);
+        if(statystyki.getPoziom() % 2 != 0){
+            tura.setTime(tura.getTime() - Gdx.graphics.getDeltaTime());
 
 //        sprawdzenie czy nie skończył się czas ataku
-        if(tura.getTime() < 0 && tura.isTyp() == false){
-            tura.setTyp(true);
-            tura.setTime(10);
-            myinterface.setInfo("Przerwa od ataku");
+            if(tura.getTime() < 0 && tura.isTyp() == false){
+                tura.setTyp(true);
+                tura.setTime(10);
+                myinterface.setInfo("Przerwa od ataku");
 //            System.out.println("Koniec czasu ataku");
-        }
+            }
 
-        if(tura.getTime() < 0 && tura.isTyp() == true){
-            Double iloscpotworkow = tura.getMakspotworow() * 1.5;
-            tura.setMakspotworow(iloscpotworkow.intValue());
-            tura.setTyp(false);
-            tura.setTime(10);
-            statystyki.setPoziom(statystyki.getPoziom() + 1);
-//            System.out.println("Koniec czasu odrodzenia");
-            myinterface.setInfo("Atak");
-            if(statystyki.getPoziom() % 5 == 0){
-                tura.setBoss(true);
-            }else{
+//        sprawdzenie czy nie skończył się czas odpoczynku
+            if(tura.getTime() < 0 && tura.isTyp() == true){
+                Double iloscpotworkow = tura.getMakspotworow() * 1.5;
+                tura.setMakspotworow(iloscpotworkow.intValue());
+                tura.setTyp(false);
+                tura.setTime(10);
+                statystyki.setPoziom(statystyki.getPoziom() + 1);
+                myinterface.setInfo("Atak");
+                if(statystyki.getPoziom() % 2 == 0){
+                    tura.setBoss(true);
+                }else{
+                    tura.setBoss(false);
+                }
+            }
+//            System.out.println(statystyki.getPoziom());
+        }else{
+
+            tura.setBossTime(tura.getBossTime() + Gdx.graphics.getDeltaTime());
+
+            if(tura.getBossTime() > 5){
+                myinterface.setInfo("");
+            }
+
+            if(tura.isBoss() == true && tura.isBossdodany() == false){
+                potwory.add(new Monster(r.nextInt(5000),r.nextInt(5000),r.nextInt(25),r.nextInt(20),r.nextInt(100)));
+                tura.setBossdodany(true);
+            }
+
+            boolean isBoss = false;
+            for (Monster m : potwory) {
+                if(m.isBoss() == true){
+                    isBoss = true;
+                }
+            }
+
+//            System.out.println("Czy jest boss: " + isBoss);
+
+            if(isBoss == false){
+                tura.setBossTime(0);
                 tura.setBoss(false);
+                tura.setBossdodany(false);
+                tura.setTyp(false);
+                tura.setTime(10);
+                statystyki.setPoziom(statystyki.getPoziom() + 1);
             }
         }
+
 
 //        Usunięcie info o "Przewa od ataku"
         if(tura.isTyp() == false && tura.getTime() < 5){
