@@ -18,7 +18,7 @@ public class Baza extends Rectangle{
     public Baza(){
         super(2400,2400, 200,200);
         poziom = 1;
-        hp = 100;
+        hp = 10;
         pixmap = new Pixmap(200,200, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.GREEN);
         pixmap.fillRectangle(0,0,200,200);

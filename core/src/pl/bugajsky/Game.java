@@ -270,9 +270,13 @@ public class Game implements Screen {
                 }
             }
 
-//            System.out.println("Czy jest boss: " + isBoss);
-
             if(isBoss == false){
+                boolean gift = r.nextBoolean();
+                if(gift == false){
+                    player.setHp(player.getHp() + 5);
+                }else{
+                    baza.setHp(baza.getHp() + 5);
+                }
                 tura.setBossTime(0);
                 tura.setBoss(false);
                 tura.setBossdodany(false);
