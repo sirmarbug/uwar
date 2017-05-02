@@ -502,12 +502,17 @@ public class Game implements Screen {
         for(Iterator<Monster> pot = potwory.iterator(); pot.hasNext();) {
             Monster p = pot.next();
             Rectangle rec = new Rectangle(player.x - player.radius, player.y - player.radius, player.radius * 2,player.radius * 2);
-            if(p.overlaps(rec)){
+            if(p.overlaps(rec) && p.isBoss() == false){
                 player.setHp(player.getHp() - 10);
                 pot.remove();
             }
 
-            if(p.overlaps(baza)){
+            if(p.overlaps(rec) && p.isBoss() == true){
+                player.setHp(player.getHp() - p.getHp());
+                pot.remove();
+            }
+
+            if(p.overlaps(baza) && p.isBoss() == false){
                 baza.setHp(baza.getHp() - 10);
                 pot.remove();
             }
