@@ -456,7 +456,7 @@ public class Game implements Screen {
         timerMonster += Gdx.graphics.getDeltaTime();
         if(timerMonster > 1){
             if(potwory.size() < tura.getMakspotworow() && tura.isTyp() == false)
-                potwory.add(new Monster(r.nextInt(5000),r.nextInt(5000)));
+                potwory.add(new Monster(r.nextInt(5000),r.nextInt(5000), statystyki.getPoziom()));
             timerMonster = 0;
         }
 

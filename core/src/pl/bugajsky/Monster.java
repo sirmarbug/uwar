@@ -23,12 +23,12 @@ public class Monster extends Rectangle{
     private Random r;
     private boolean boss;
 
-    public Monster(int x, int y){
+    public Monster(int x, int y, int lvl){
         super(x, y,20,20);
         r = new Random();
-        hp = 5;
-        speed = 5;
-        score = 1;
+        hp = r.nextInt(lvl) + 1;
+        speed = r.nextInt(lvl*5) + 1;
+        score = r.nextInt(lvl) + 1;
         boss = false;
         moveDirection = r.nextInt(4);
         moveQuantity = r.nextInt(5)+1;
