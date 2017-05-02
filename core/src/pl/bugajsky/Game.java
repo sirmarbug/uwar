@@ -504,7 +504,7 @@ public class Game implements Screen {
             Monster p = pot.next();
             Rectangle rec = new Rectangle(player.x - player.radius, player.y - player.radius, player.radius * 2,player.radius * 2);
             if(p.overlaps(rec) && p.isBoss() == false){
-                player.setHp(player.getHp() - 10);
+                player.setHp(player.getHp() - 1);
                 pot.remove();
             }
 
@@ -514,7 +514,7 @@ public class Game implements Screen {
             }
 
             if(p.overlaps(baza) && p.isBoss() == false){
-                baza.setHp(baza.getHp() - 10);
+                baza.setHp(baza.getHp() - 1);
                 pot.remove();
             }
         }

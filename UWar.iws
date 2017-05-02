@@ -7,6 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="555540f1-3ad6-4eb7-98ae-a88834ce8ebe" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/pl/bugajsky/Game.java" afterPath="$PROJECT_DIR$/core/src/pl/bugajsky/Game.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/pl/bugajsky/Menu.java" afterPath="$PROJECT_DIR$/core/src/pl/bugajsky/Menu.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -65,11 +66,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="323" column="62" lean-forward="false" selection-start-line="323" selection-start-column="62" selection-end-line="323" selection-end-column="62" />
+            <state relative-caret-position="457">
+              <caret line="516" column="43" lean-forward="false" selection-start-line="516" selection-start-column="43" selection-end-line="516" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -80,8 +81,8 @@
       <file leaf-file-name="Monster.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Monster.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="187" column="9" lean-forward="false" selection-start-line="187" selection-start-column="9" selection-end-line="187" selection-end-column="9" />
+            <state relative-caret-position="-1709">
+              <caret line="21" column="5" lean-forward="false" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="5" />
               <folding>
                 <element signature="e#2497#2498#0" expanded="true" />
                 <element signature="e#2524#2525#0" expanded="true" />
@@ -141,11 +142,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Menu.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Menu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Menu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="35" column="51" lean-forward="false" selection-start-line="35" selection-start-column="51" selection-end-line="35" selection-end-column="51" />
+            <state relative-caret-position="361">
+              <caret line="35" column="48" lean-forward="false" selection-start-line="35" selection-start-column="48" selection-end-line="35" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -914,13 +915,13 @@
       <workItem from="1492799581756" duration="462000" />
       <workItem from="1492966168114" duration="2656000" />
       <workItem from="1493577587365" duration="47000" />
-      <workItem from="1493704742552" duration="18011000" />
+      <workItem from="1493704742552" duration="19108000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
     <option name="enabled" value="true" />
-    <option name="totallyTimeSpent" value="146368000" />
+    <option name="totallyTimeSpent" value="147465000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
@@ -1524,10 +1525,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Interface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="97" column="23" lean-forward="false" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Menu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="35" column="48" lean-forward="false" selection-start-line="35" selection-start-column="48" selection-end-line="35" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Monster.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="187" column="9" lean-forward="false" selection-start-line="187" selection-start-column="9" selection-end-line="187" selection-end-column="9" />
+        <state relative-caret-position="-1709">
+          <caret line="21" column="5" lean-forward="false" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="5" />
           <folding>
             <element signature="e#2497#2498#0" expanded="true" />
             <element signature="e#2524#2525#0" expanded="true" />
@@ -1541,27 +1558,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="323" column="62" lean-forward="false" selection-start-line="323" selection-start-column="62" selection-end-line="323" selection-end-column="62" />
+        <state relative-caret-position="457">
+          <caret line="516" column="43" lean-forward="false" selection-start-line="516" selection-start-column="43" selection-end-line="516" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Interface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="97" column="23" lean-forward="false" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/pl/bugajsky/Menu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="35" column="51" lean-forward="false" selection-start-line="35" selection-start-column="51" selection-end-line="35" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>

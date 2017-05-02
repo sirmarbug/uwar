@@ -33,7 +33,7 @@ public class Menu implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "UWar v.0.2", 360, 500);
+        game.font.draw(game.batch, "UWar v.0.2.1", 360, 500);
 //        game.font.draw(game.batch, "Play", 100, 100);
         game.batch.end();
 
