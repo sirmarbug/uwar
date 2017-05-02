@@ -56,7 +56,7 @@ public class Game implements Screen {
 
         batch = new SpriteBatch();
 
-        tura = new Tura(false,false, 10);
+        tura = new Tura(false,false, 60);
         statystyki = new Statystyki();
 
 //		Inicjalizacja strzałów
@@ -222,7 +222,7 @@ public class Game implements Screen {
         }
 
 //        TURA
-        if(statystyki.getPoziom() % 2 != 0){
+        if(statystyki.getPoziom() % 5 != 0){
             tura.setTime(tura.getTime() - Gdx.graphics.getDeltaTime());
 
 //        sprawdzenie czy nie skończył się czas ataku
@@ -243,7 +243,7 @@ public class Game implements Screen {
                 tura.setTime(tura.getKoniecCzasuAtaku());
                 statystyki.setPoziom(statystyki.getPoziom() + 1);
                 myinterface.setInfo("Atak");
-                if(statystyki.getPoziom() % 2 == 0){
+                if(statystyki.getPoziom() % 5 == 0){
                     tura.setBoss(true);
                 }else{
                     tura.setBoss(false);
@@ -281,7 +281,7 @@ public class Game implements Screen {
                 tura.setBoss(false);
                 tura.setBossdodany(false);
                 tura.setTyp(false);
-                tura.setTime(10);
+                tura.setTime(60);
                 statystyki.setPoziom(statystyki.getPoziom() + 1);
             }
         }

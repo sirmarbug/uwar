@@ -31,8 +31,8 @@ public class Gift extends Rectangle{
         sprite = new Sprite(texture);
         pixmap.dispose();
         Random r = new Random();
-        type = 3;
-//        type = r.nextInt(7);
+//        type = 3;
+        type = r.nextInt(7);
         time = 20;
 //        type = 11;
         sprite.setX(x);
