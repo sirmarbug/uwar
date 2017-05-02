@@ -228,7 +228,8 @@ public class Game implements Screen {
 //        sprawdzenie czy nie skończył się czas ataku
             if(tura.getTime() < 0 && tura.isTyp() == false){
                 tura.setTyp(true);
-                tura.setTime(10);
+                tura.changeTimeAtac();
+                tura.setTime(tura.getKoniecCzasuPrzerwy());
                 myinterface.setInfo("Przerwa od ataku");
 //            System.out.println("Koniec czasu ataku");
             }
@@ -238,7 +239,8 @@ public class Game implements Screen {
                 Double iloscpotworkow = tura.getMakspotworow() * 1.5;
                 tura.setMakspotworow(iloscpotworkow.intValue());
                 tura.setTyp(false);
-                tura.setTime(10);
+                tura.changeTimeBreak();
+                tura.setTime(tura.getKoniecCzasuAtaku());
                 statystyki.setPoziom(statystyki.getPoziom() + 1);
                 myinterface.setInfo("Atak");
                 if(statystyki.getPoziom() % 2 == 0){
