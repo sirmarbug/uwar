@@ -45,6 +45,9 @@ public class Game implements Screen {
     private BitmapFont font;
     private Stage stage;
     private Interface myinterface;
+    private Tura tura;
+    private Statystyki statystyki;
+//    private float turaTimer;
 
     public Game(final UWar game) {
         this.game = game;
@@ -52,6 +55,9 @@ public class Game implements Screen {
         stage = new Stage(new ScreenViewport());
 
         batch = new SpriteBatch();
+
+        tura = new Tura(false,false, 10);
+        statystyki = new Statystyki();
 
 //		Inicjalizacja strzałów
         strzaly = new LinkedList<Shoot>();
@@ -164,7 +170,7 @@ public class Game implements Screen {
     private void update(float dt) {
 
 //      warunek na koniec gry
-        if(player.getHp() < 1 || baza.getHp() < 1){
+        if(player.getHp() < 1 || baza.getHp() < 1) {
             game.setScreen(new End(game, player));
         }
 
@@ -172,7 +178,7 @@ public class Game implements Screen {
         batch.setProjectionMatrix(camera.combined);
 
 //		ustawienie współrzędnych playera
-        myinterface.setPlayer("x: " + player.x + " y: " + player.y);
+        myinterface.setPlayer("Poziom: " + statystyki.getPoziom());
 
 //		ustawienie życia bohatera
         myinterface.setLife("Life: " + player.getHp());
@@ -214,6 +220,44 @@ public class Game implements Screen {
                 }
             }
         }
+
+//        TURA
+        tura.setTime(tura.getTime() - Gdx.graphics.getDeltaTime());
+//        System.out.println(turaTimer);
+
+//        sprawdzenie czy nie skończył się czas ataku
+        if(tura.getTime() < 0 && tura.isTyp() == false){
+            tura.setTyp(true);
+            tura.setTime(10);
+            myinterface.setInfo("Przerwa od ataku");
+//            System.out.println("Koniec czasu ataku");
+        }
+
+        if(tura.getTime() < 0 && tura.isTyp() == true){
+            Double iloscpotworkow = tura.getMakspotworow() * 1.5;
+            tura.setMakspotworow(iloscpotworkow.intValue());
+            tura.setTyp(false);
+            tura.setTime(10);
+            statystyki.setPoziom(statystyki.getPoziom() + 1);
+//            System.out.println("Koniec czasu odrodzenia");
+            myinterface.setInfo("Atak");
+            if(statystyki.getPoziom() % 5 == 0){
+                tura.setBoss(true);
+            }else{
+                tura.setBoss(false);
+            }
+        }
+
+//        Usunięcie info o "Przewa od ataku"
+        if(tura.isTyp() == false && tura.getTime() < 5){
+            myinterface.setInfo("");
+        }
+
+//        Usunięcie info o "Atak"
+        if(tura.isTyp() == true && tura.getTime() < 2){
+            myinterface.setInfo("");
+        }
+
 
 //		dodawanie życia w bazie
         if(player.x > 2400 && player.x < 2600){
@@ -376,7 +420,7 @@ public class Game implements Screen {
 //		POTWORY
         timerMonster += Gdx.graphics.getDeltaTime();
         if(timerMonster > 1){
-            if(potwory.size() < 10)
+            if(potwory.size() < tura.getMakspotworow() && tura.isTyp() == false)
                 potwory.add(new Monster(r.nextInt(5000),r.nextInt(5000)));
             timerMonster = 0;
         }
@@ -472,30 +516,27 @@ public class Game implements Screen {
         }
 
 //        Bieganie
-        if(Gdx.input.isKeyPressed(Input.Keys.W) && player.y > 0 && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
-            System.out.println("weszło");
-            player.runMoveToTop(Gdx.graphics.getDeltaTime());
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.S) && player.y > 0 && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
-            System.out.println("weszło");
-            player.runMoveToBottom(Gdx.graphics.getDeltaTime());
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.A) && player.x > 0 && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
-            System.out.println("weszło");
-            player.runMoveToLeft(Gdx.graphics.getDeltaTime());
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-            System.out.println("weszło");
-            player.runMoveToRight(Gdx.graphics.getDeltaTime());
-        }
-
-
-        if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
-            player.x += 20;
-        }
+//        if(Gdx.input.isKeyPressed(Input.Keys.W) && player.y > 0 && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+//            player.runMoveToTop(Gdx.graphics.getDeltaTime());
+//
+//        }
+//
+//        if(Gdx.input.isKeyPressed(Input.Keys.S) && player.y > 0 && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+//            player.runMoveToBottom(Gdx.graphics.getDeltaTime());
+//        }
+//
+//        if(Gdx.input.isKeyPressed(Input.Keys.A) && player.x > 0 && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+//            player.runMoveToLeft(Gdx.graphics.getDeltaTime());
+//        }
+//
+//        if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+//            player.runMoveToRight(Gdx.graphics.getDeltaTime());
+//        }
+//
+//
+//        if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+//            player.x += 20;
+//        }
 
 //		Kierowanie strzałem
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){

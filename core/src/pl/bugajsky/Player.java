@@ -24,6 +24,7 @@ public class Player extends Circle{
     private Texture texture;
     private Pixmap pixmap;
     private float giftTime;
+    private int runTime;
     private int giftType;
     private float speedRun;
 
@@ -35,6 +36,7 @@ public class Player extends Circle{
         speedRun = 250 + 50;
         direction = 0;
         giftTime = 1;
+        runTime = 5;
         giftType = -1;
         pozycja = new Vector2(x, y);
         nowaPozycja = new Vector2();
@@ -142,6 +144,14 @@ public class Player extends Circle{
 
     public void setGiftType(int giftType) {
         this.giftType = giftType;
+    }
+
+    public int getRunTime() {
+        return runTime;
+    }
+
+    public void setRunTime(int runTime) {
+        this.runTime = runTime;
     }
 
     public float getSpeedRun() {
