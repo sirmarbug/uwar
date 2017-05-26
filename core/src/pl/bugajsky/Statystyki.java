@@ -6,10 +6,12 @@ package pl.bugajsky;
 public class Statystyki {
     private int poziom;
     private int wynik;
+    private int wrogowie;
 
     public Statystyki() {
-        this.poziom = 1;
-        this.wynik = 0;
+        poziom = 1;
+        wynik = 0;
+        wrogowie = 0;
     }
 
     public int getPoziom() {
@@ -27,4 +29,13 @@ public class Statystyki {
     public void setWynik(int wynik) {
         this.wynik = wynik;
     }
+
+    public int getWrogowie() {
+        return wrogowie;
+    }
+
+    public void setWrogowie(int wrogowie) {
+        this.wrogowie = wrogowie;
+    }
+    
 }

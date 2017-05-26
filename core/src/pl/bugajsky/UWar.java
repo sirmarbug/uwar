@@ -10,13 +10,12 @@ public class UWar extends Game{
 
 	public void create() {
 		batch = new SpriteBatch();
-		//Use LibGDX's default Arial font.
 		font = new BitmapFont();
 		this.setScreen(new Menu(this));
 	}
 
 	public void render() {
-		super.render(); //important!
+		super.render();
 	}
 
 	public void dispose() {

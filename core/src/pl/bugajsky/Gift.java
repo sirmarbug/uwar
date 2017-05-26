@@ -18,7 +18,6 @@ public class Gift extends Rectangle{
     private Pixmap pixmap;
     private Texture texture;
     private Sprite sprite;
-    private int animacja;
     private float time;
 
     public Gift(int x, int y) {
@@ -69,14 +68,6 @@ public class Gift extends Rectangle{
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
-    }
-
-    public float getAnimacja() {
-        return animacja;
-    }
-
-    public void setAnimacja(int animacja) {
-        this.animacja = animacja;
     }
 
     public float getTime() {

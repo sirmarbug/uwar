@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -47,6 +48,8 @@ public class Game implements Screen {
     private Interface myinterface;
     private Tura tura;
     private Statystyki statystyki;
+//    private Texture texturePlayer;
+//    private TextureRegion[] playerRegion;
 //    private float turaTimer;
 
     public Game(final UWar game) {
@@ -55,6 +58,13 @@ public class Game implements Screen {
         stage = new Stage(new ScreenViewport());
 
         batch = new SpriteBatch();
+
+//        texturePlayer = new Texture("player.png");
+//        playerRegion = new TextureRegion[4];
+//        playerRegion[0] = new TextureRegion(texturePlayer, 52, 72*4, 52, 72);
+//        playerRegion[1] = new TextureRegion(texturePlayer, 52, 72*5, 52, 72);
+//        playerRegion[2] = new TextureRegion(texturePlayer, 52, 72*6, 52, 72);
+//        playerRegion[3] = new TextureRegion(texturePlayer, 52, 72*7, 52, 72);
 
         tura = new Tura(false,false, 60);
         statystyki = new Statystyki();
@@ -139,6 +149,15 @@ public class Game implements Screen {
 //		batch.draw(home,2400,2400, home.getWidth(),home.getHeight());
 
 //		rysowanie postaci gracza
+//        if(player.getDirection() == 0){
+//            batch.draw(playerRegion[1],player.x, player.y);
+//        }else if(player.getDirection() == 2){
+//            batch.draw(playerRegion[2],player.x, player.y);
+//        }else if(player.getDirection() == 1){
+//            batch.draw(playerRegion[3],player.x, player.y);
+//        }else{
+//            batch.draw(playerRegion[0],player.x, player.y);
+//        }
         batch.draw(player.getTexture(),player.x, player.y);
 
 //		Rysowanie strzałów
@@ -281,7 +300,7 @@ public class Game implements Screen {
                 tura.setBoss(false);
                 tura.setBossdodany(false);
                 tura.setTyp(false);
-                tura.setTime(60);
+                tura.setTime(tura.getKoniecCzasuAtaku());
                 statystyki.setPoziom(statystyki.getPoziom() + 1);
             }
         }

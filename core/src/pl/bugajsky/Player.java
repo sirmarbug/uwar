@@ -30,7 +30,7 @@ public class Player extends Circle{
 
     public Player(float x, float y){
         super(x,y,10);
-        hp = 20;
+        hp = 50;
         score = 0;
         speed = 250;
         speedRun = 250 + 50;
@@ -191,21 +191,25 @@ public class Player extends Circle{
     public void goMoveToLeft(float dt){
         nowaPozycja.set(pozycja.x - 100, pozycja.y);
         goMove(nowaPozycja, 0,dt);
+        setDirection(0);
     }
 
     public void goMoveToRight(float dt){
         nowaPozycja.set(pozycja.x + 100, pozycja.y);
         goMove(nowaPozycja, 2, dt);
+        setDirection(2);
     }
 
     public void goMoveToTop(float dt){
         nowaPozycja.set(pozycja.x, pozycja.y + 100);
         goMove(nowaPozycja, 1, dt);
+        setDirection(1);
     }
 
     public void goMoveToBottom(float dt){
         nowaPozycja.set(pozycja.x, pozycja.y - 100);
         goMove(nowaPozycja, 3, dt);
+        setDirection(3);
     }
 
     public void runMoveToLeft(float dt){
