@@ -3,6 +3,9 @@ package pl.bugajsky;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -27,6 +30,9 @@ public class Player extends Circle{
     private int runTime;
     private int giftType;
     private float speedRun;
+    private float moveTime;
+    private int step;
+    private Sprite sprite;
 
     public Player(float x, float y){
         super(x,y,10);
@@ -48,6 +54,9 @@ public class Player extends Circle{
         pixmap.fillCircle(10, 10, 10);
         texture = new Texture(pixmap);
         pixmap.dispose();
+        moveTime = 0;
+        step = 1;
+        sprite = new Sprite();
     }
 
     public int getHp() {
@@ -162,6 +171,35 @@ public class Player extends Circle{
         this.speedRun = speedRun;
     }
 
+    public float getMoveTime() {
+        return moveTime;
+    }
+
+    public void setMoveTime(float moveTime) {
+        this.moveTime = moveTime;
+    }
+
+    public int getStep() {
+        return step;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
+    }
+
+    public void stepAnimation(float time){
+        setMoveTime(getMoveTime() + time);
+        if(getMoveTime() > 0.15) {
+            setStep(getStep() + 1);
+            setMoveTime(0);
+
+            if(getStep() > 2)
+                setStep(0);
+
+            System.out.println(getMoveTime());
+        }
+    }
+
     public void goMove(Vector2 nowaPozycja, int direction, float dt){
         wektor.set(nowaPozycja).sub(pozycja).nor();
         szybkosc.set(wektor).scl(speed);
@@ -230,5 +268,12 @@ public class Player extends Circle{
     public void runMoveToBottom(float dt){
         nowaPozycja.set(pozycja.x, pozycja.y - 100);
         runMove(nowaPozycja, 3, dt);
+    }
+
+    public void draw (SpriteBatch batch, TextureAtlas region, float angle) {
+        sprite.set(region.createSprite("" + getStep()));
+        sprite.setPosition(getPozycja().x, getPozycja().y);
+        sprite.rotate(angle);
+        sprite.draw(batch);
     }
 }

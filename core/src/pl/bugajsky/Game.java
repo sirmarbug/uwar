@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -28,9 +25,6 @@ public class Game implements Screen {
     private Baza baza;
     private OrthographicCamera camera;
     private Texture texture;
-//    private Texture giftTexture;
-//    private Sprite giftSprite;
-    //	private Texture home;
     private float timeHome;
     private float timeShoot;
     private float timerMonster;
@@ -46,11 +40,10 @@ public class Game implements Screen {
     private BitmapFont font;
     private Stage stage;
     private Interface myinterface;
+    private GameInterface gameInterface;
     private Tura tura;
     private Statystyki statystyki;
-//    private Texture texturePlayer;
-//    private TextureRegion[] playerRegion;
-//    private float turaTimer;
+    private TextureAtlas textureAtlasPlayer;
 
     public Game(final UWar game) {
         this.game = game;
@@ -59,12 +52,7 @@ public class Game implements Screen {
 
         batch = new SpriteBatch();
 
-//        texturePlayer = new Texture("player.png");
-//        playerRegion = new TextureRegion[4];
-//        playerRegion[0] = new TextureRegion(texturePlayer, 52, 72*4, 52, 72);
-//        playerRegion[1] = new TextureRegion(texturePlayer, 52, 72*5, 52, 72);
-//        playerRegion[2] = new TextureRegion(texturePlayer, 52, 72*6, 52, 72);
-//        playerRegion[3] = new TextureRegion(texturePlayer, 52, 72*7, 52, 72);
+        textureAtlasPlayer = new TextureAtlas(Gdx.files.internal("player.pack"));
 
         tura = new Tura(false,false, 60);
         statystyki = new Statystyki();
@@ -93,6 +81,8 @@ public class Game implements Screen {
 //		Utworzenie gracza
         player = new Player(camera.viewportWidth / 2f, camera.viewportHeight / 2f);
 
+//        gameInterface = new GameInterface();
+//        stage.addActor(gameInterface);
         myinterface = new Interface();
         stage.addActor(myinterface);
         Gdx.input.setInputProcessor(stage);
@@ -103,13 +93,6 @@ public class Game implements Screen {
         pixmap.drawRectangle(0,0, 5000, 5000);
         texture = new Texture(pixmap);
         pixmap.dispose();
-
-//		Utworzenie wyglądu bazy
-//		pixmap = new Pixmap(200,200, Pixmap.Format.RGBA8888);
-//		pixmap.setColor(Color.GREEN);
-//		pixmap.fillRectangle(0,0,200,200);
-//		home = new Texture(pixmap);
-//		pixmap.dispose();
 
 //		TimerHome
         timeHome = 0;
@@ -146,19 +129,17 @@ public class Game implements Screen {
 
 //		obszar bazy
         batch.draw(baza.getTexture(), baza.getX(), baza.getY(),baza.getWidth(), baza.getHeight());
-//		batch.draw(home,2400,2400, home.getWidth(),home.getHeight());
 
 //		rysowanie postaci gracza
-//        if(player.getDirection() == 0){
-//            batch.draw(playerRegion[1],player.x, player.y);
-//        }else if(player.getDirection() == 2){
-//            batch.draw(playerRegion[2],player.x, player.y);
-//        }else if(player.getDirection() == 1){
-//            batch.draw(playerRegion[3],player.x, player.y);
-//        }else{
-//            batch.draw(playerRegion[0],player.x, player.y);
-//        }
-        batch.draw(player.getTexture(),player.x, player.y);
+        if(player.getDirection() == 0){
+            player.draw(batch, textureAtlasPlayer, 180); // lewo
+        }else if(player.getDirection() == 2){
+            player.draw(batch, textureAtlasPlayer, 0); //prawo
+        }else if(player.getDirection() == 1){
+            player.draw(batch, textureAtlasPlayer, 90); //dol
+        }else{
+            player.draw(batch, textureAtlasPlayer, 280); //gora
+        }
 
 //		Rysowanie strzałów
         for (Shoot s : strzaly) {
@@ -560,23 +541,22 @@ public class Game implements Screen {
 
         if(Gdx.input.isKeyPressed(Input.Keys.W) && player.y < 5000-2*player.radius){
             player.goMoveToTop(Gdx.graphics.getDeltaTime());
-//			player.y += 250 * Gdx.graphics.getDeltaTime();
+            player.stepAnimation(Gdx.graphics.getDeltaTime());
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.S) && player.y > 0){
             player.goMoveToBottom(Gdx.graphics.getDeltaTime());
-//			player.y -= 250 * Gdx.graphics.getDeltaTime();
+            player.stepAnimation(Gdx.graphics.getDeltaTime());
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.A) && player.x > 0){
             player.goMoveToLeft(Gdx.graphics.getDeltaTime());
-//			player.x -= 250 * Gdx.graphics.getDeltaTime();
-//			player.setDirection(0);
+            player.stepAnimation(Gdx.graphics.getDeltaTime());
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.D) && player.x < 5000-2*player.radius) {
             player.goMoveToRight(Gdx.graphics.getDeltaTime());
-//			player.x += 250 * Gdx.graphics.getDeltaTime();
+            player.stepAnimation(Gdx.graphics.getDeltaTime());
         }
 
 //        Bieganie
@@ -803,5 +783,6 @@ public class Game implements Screen {
         texture.dispose();
 //		home.dispose();
         stage.dispose();
+        textureAtlasPlayer.dispose();
     }
 }
