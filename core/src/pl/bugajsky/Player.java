@@ -195,8 +195,6 @@ public class Player extends Circle{
 
             if(getStep() > 2)
                 setStep(0);
-
-            System.out.println(getMoveTime());
         }
     }
 

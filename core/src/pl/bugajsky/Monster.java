@@ -3,6 +3,9 @@ package pl.bugajsky;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
@@ -22,6 +25,9 @@ public class Monster extends Rectangle{
     private int moveQuantity;  //ilosc
     private Random r;
     private boolean boss;
+    private float moveTime;
+    private int step;
+    private Sprite sprite;
 
     public Monster(int x, int y, int lvl){
         super(x, y,20,20);
@@ -37,6 +43,9 @@ public class Monster extends Rectangle{
         pixmap.fillRectangle(0,0,20,20);
         texture = new Texture(pixmap);
         pixmap.dispose();
+        moveTime = 0;
+        step = 1;
+        sprite = new Sprite();
     }
 
     public Monster(int x, int y, int hp, int speed, int score){
@@ -53,6 +62,9 @@ public class Monster extends Rectangle{
         pixmap.fillRectangle(0,0,50,50);
         texture = new Texture(pixmap);
         pixmap.dispose();
+        moveTime = 0;
+        step = 1;
+        sprite = new Sprite();
     }
 
     public Texture getTexture() {
@@ -194,5 +206,39 @@ public int generateDirectionShoot(Player player){
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public float getMoveTime() {
+        return moveTime;
+    }
+
+    public void setMoveTime(float moveTime) {
+        this.moveTime = moveTime;
+    }
+
+    public int getStep() {
+        return step;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
+    }
+
+    public void stepAnimation(float time){
+        setMoveTime(getMoveTime() + time);
+        if(getMoveTime() > 0.15) {
+            setStep(getStep() + 1);
+            setMoveTime(0);
+
+            if(getStep() > 2)
+                setStep(0);
+        }
+    }
+
+    public void draw (SpriteBatch batch, TextureAtlas region, float angle) {
+        sprite.set(region.createSprite("" + getStep()));
+        sprite.setPosition(x, y);
+        sprite.rotate(angle);
+        sprite.draw(batch);
     }
 }

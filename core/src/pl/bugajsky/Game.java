@@ -44,6 +44,7 @@ public class Game implements Screen {
     private Tura tura;
     private Statystyki statystyki;
     private TextureAtlas textureAtlasPlayer;
+    private TextureAtlas textureAtlasEnemy;
 
     public Game(final UWar game) {
         this.game = game;
@@ -53,6 +54,7 @@ public class Game implements Screen {
         batch = new SpriteBatch();
 
         textureAtlasPlayer = new TextureAtlas(Gdx.files.internal("player.pack"));
+        textureAtlasEnemy = new TextureAtlas(Gdx.files.internal("enemy.pack"));
 
         tura = new Tura(false,false, 60);
         statystyki = new Statystyki();
@@ -153,7 +155,16 @@ public class Game implements Screen {
 
 //		Rysowanie potworów z listy
         for (Monster m : potwory) {
-            batch.draw(m.getTexture(), m.x, m.y);
+            if(m.getMoveDirection() == 0){
+                m.draw(batch, textureAtlasEnemy, 180); // lewo
+            }else if(m.getMoveDirection() == 2){
+                m.draw(batch, textureAtlasEnemy, 0); //prawo
+            }else if(m.getMoveDirection() == 1){
+                m.draw(batch, textureAtlasEnemy, 90); //dol
+            }else{
+                m.draw(batch, textureAtlasEnemy, 280); //gora
+            }
+//            batch.draw(m.getTexture(), m.x, m.y);
         }
 
 //      Rysowanie prezentów
@@ -472,6 +483,7 @@ public class Game implements Screen {
                 m.moveToRight();
                 m.moveToTop();
                 m.setMoveQuantity(m.getMoveQuantity() - 1);
+                m.stepAnimation(Gdx.graphics.getDeltaTime());
             } else {
                 m.generateMove(player);
                 m.moveToBottom();
@@ -479,6 +491,7 @@ public class Game implements Screen {
                 m.moveToRight();
                 m.moveToTop();
                 m.setMoveQuantity(m.getMoveQuantity() - 1);
+                m.stepAnimation(Gdx.graphics.getDeltaTime());
             }
         }
 

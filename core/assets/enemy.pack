@@ -1,0 +1,26 @@
+
+wrogowie1.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+2
+  rotate: false
+  xy: 2, 2
+  size: 35, 43
+  orig: 35, 43
+  offset: 0, 0
+  index: -1
+0
+  rotate: false
+  xy: 2, 47
+  size: 35, 43
+  orig: 35, 43
+  offset: 0, 0
+  index: -1
+1
+  rotate: false
+  xy: 39, 2
+  size: 33, 43
+  orig: 33, 43
+  offset: 0, 0
+  index: -1
