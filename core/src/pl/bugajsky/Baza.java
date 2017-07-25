@@ -19,11 +19,7 @@ public class Baza extends Rectangle{
         super(2400,2400, 200,200);
         poziom = 1;
         hp = 50;
-        pixmap = new Pixmap(200,200, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.GREEN);
-        pixmap.fillRectangle(0,0,200,200);
-        texture = new Texture(pixmap);
-        pixmap.dispose();
+        texture = new Texture("home.png");
     }
 
     public int getPoziom() {

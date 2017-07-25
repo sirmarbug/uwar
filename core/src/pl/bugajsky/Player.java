@@ -248,6 +248,12 @@ public class Player extends Circle{
         setDirection(3);
     }
 
+    public void goMoveToTopRight(float dt){
+        nowaPozycja.set(pozycja.x - 100, pozycja.y - 100);
+        goMove(nowaPozycja, 3, dt);
+        setDirection(3);
+    }
+
     public void runMoveToLeft(float dt){
         nowaPozycja.set(pozycja.x - 100, pozycja.y);
         runMove(nowaPozycja, 0,dt);

@@ -43,8 +43,10 @@ public class Game implements Screen {
     private GameInterface gameInterface;
     private Tura tura;
     private Statystyki statystyki;
+    private Texture textureShoot;
     private TextureAtlas textureAtlasPlayer;
     private TextureAtlas textureAtlasEnemy;
+    private Texture map;
 
     public Game(final UWar game) {
         this.game = game;
@@ -52,6 +54,8 @@ public class Game implements Screen {
         stage = new Stage(new ScreenViewport());
 
         batch = new SpriteBatch();
+        textureShoot = new Texture("shoot.png");
+        map = new Texture("mapa.png");
 
         textureAtlasPlayer = new TextureAtlas(Gdx.files.internal("player.pack"));
         textureAtlasEnemy = new TextureAtlas(Gdx.files.internal("enemy.pack"));
@@ -83,7 +87,7 @@ public class Game implements Screen {
 //		Utworzenie gracza
         player = new Player(camera.viewportWidth / 2f, camera.viewportHeight / 2f);
 
-//        gameInterface = new GameInterface();
+        gameInterface = new GameInterface();
 //        stage.addActor(gameInterface);
         myinterface = new Interface();
         stage.addActor(myinterface);
@@ -129,6 +133,9 @@ public class Game implements Screen {
 //		rysowanie obszaru ruchu
         batch.draw(texture,0,0);
 
+//        rysowanie mapy
+//        batch.draw(map, 0,0);
+
 //		obszar bazy
         batch.draw(baza.getTexture(), baza.getX(), baza.getY(),baza.getWidth(), baza.getHeight());
 
@@ -145,12 +152,12 @@ public class Game implements Screen {
 
 //		Rysowanie strzałów
         for (Shoot s : strzaly) {
-            batch.draw(s.getTexture(), s.x, s.y);
+            batch.draw(textureShoot, s.x, s.y);
         }
 
 //		Rysowanie strzałów potworów
         for (Shoot s : strzalyPotworow) {
-            batch.draw(s.getTexture(), s.x, s.y);
+            batch.draw(textureShoot, s.x, s.y);
         }
 
 //		Rysowanie potworów z listy
@@ -384,71 +391,71 @@ public class Game implements Screen {
 
         for (Shoot s : strzaly) {
             if(s.getDirection() == 0){
-                s.x -= 400 * Gdx.graphics.getDeltaTime();
+                s.x -= 800 * Gdx.graphics.getDeltaTime();
             }
             if(s.getDirection() == 1){
-                s.y += 400 * Gdx.graphics.getDeltaTime();
+                s.y += 800 * Gdx.graphics.getDeltaTime();
             }
             if(s.getDirection() == 2){
-                s.x += 400 * Gdx.graphics.getDeltaTime();
+                s.x += 800 * Gdx.graphics.getDeltaTime();
             }
             if(s.getDirection() == 3){
-                s.y -= 400 * Gdx.graphics.getDeltaTime();
+                s.y -= 800 * Gdx.graphics.getDeltaTime();
             }
 
             if(s.getDirection() == 4){
-                s.x += 400 * Gdx.graphics.getDeltaTime();
-                s.y += 400 * Gdx.graphics.getDeltaTime();
+                s.x += 500 * Gdx.graphics.getDeltaTime();
+                s.y += 500 * Gdx.graphics.getDeltaTime();
             }
 
             if(s.getDirection() == 5){
-                s.x -= 400 * Gdx.graphics.getDeltaTime();
-                s.y += 400 * Gdx.graphics.getDeltaTime();
+                s.x -= 500 * Gdx.graphics.getDeltaTime();
+                s.y += 500 * Gdx.graphics.getDeltaTime();
             }
 
             if(s.getDirection() == 6){
-                s.x += 400 * Gdx.graphics.getDeltaTime();
-                s.y -= 400 * Gdx.graphics.getDeltaTime();
+                s.x += 500 * Gdx.graphics.getDeltaTime();
+                s.y -= 500 * Gdx.graphics.getDeltaTime();
             }
 
             if(s.getDirection() == 7){
-                s.x -= 400 * Gdx.graphics.getDeltaTime();
-                s.y -= 400 * Gdx.graphics.getDeltaTime();
+                s.x -= 500 * Gdx.graphics.getDeltaTime();
+                s.y -= 500 * Gdx.graphics.getDeltaTime();
             }
         }
 
         for (Shoot s : strzalyPotworow) {
             if(s.getDirection() == 0){
-                s.x -= 400 * Gdx.graphics.getDeltaTime();
+                s.x -= 800 * Gdx.graphics.getDeltaTime();
             }
             if(s.getDirection() == 1){
-                s.y += 400 * Gdx.graphics.getDeltaTime();
+                s.y += 800 * Gdx.graphics.getDeltaTime();
             }
             if(s.getDirection() == 2){
-                s.x += 400 * Gdx.graphics.getDeltaTime();
+                s.x += 800 * Gdx.graphics.getDeltaTime();
             }
             if(s.getDirection() == 3){
-                s.y -= 400 * Gdx.graphics.getDeltaTime();
+                s.y -= 800 * Gdx.graphics.getDeltaTime();
             }
 
             if(s.getDirection() == 4){
-                s.x += 400 * Gdx.graphics.getDeltaTime();
-                s.y += 400 * Gdx.graphics.getDeltaTime();
+                s.x += 500 * Gdx.graphics.getDeltaTime();
+                s.y += 500 * Gdx.graphics.getDeltaTime();
             }
 
             if(s.getDirection() == 5){
-                s.x -= 400 * Gdx.graphics.getDeltaTime();
-                s.y += 400 * Gdx.graphics.getDeltaTime();
+                s.x -= 500 * Gdx.graphics.getDeltaTime();
+                s.y += 500 * Gdx.graphics.getDeltaTime();
             }
 
             if(s.getDirection() == 6){
-                s.x += 400 * Gdx.graphics.getDeltaTime();
-                s.y -= 400 * Gdx.graphics.getDeltaTime();
+                s.x += 500 * Gdx.graphics.getDeltaTime();
+                s.y -= 500 * Gdx.graphics.getDeltaTime();
             }
 
             if(s.getDirection() == 7){
-                s.x -= 400 * Gdx.graphics.getDeltaTime();
-                s.y -= 400 * Gdx.graphics.getDeltaTime();
+                s.x -= 500 * Gdx.graphics.getDeltaTime();
+                s.y -= 500 * Gdx.graphics.getDeltaTime();
             }
         }
 
@@ -570,6 +577,11 @@ public class Game implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.D) && player.x < 5000-2*player.radius) {
             player.goMoveToRight(Gdx.graphics.getDeltaTime());
             player.stepAnimation(Gdx.graphics.getDeltaTime());
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.W) && player.x < 5000-2*player.radius) {
+//            player.goMoveToTopRight(Gdx.graphics.getDeltaTime());
+//            player.stepAnimation(Gdx.graphics.getDeltaTime());
         }
 
 //        Bieganie
@@ -797,5 +809,7 @@ public class Game implements Screen {
 //		home.dispose();
         stage.dispose();
         textureAtlasPlayer.dispose();
+        textureAtlasEnemy.dispose();
+        texture.dispose();
     }
 }

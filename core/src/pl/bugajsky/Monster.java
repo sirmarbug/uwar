@@ -157,7 +157,8 @@ public class Monster extends Rectangle{
     public void generateMove(){
         if(moveQuantity == 0){
             moveDirection = r.nextInt(4);
-            moveQuantity = r.nextInt(5)+1;
+            moveQuantity = r.nextInt(5)+100;
+            System.out.println(moveQuantity);
         }
     }
 
@@ -178,7 +179,7 @@ public class Monster extends Rectangle{
                     moveDirection = 1;
                 }
             }
-            moveQuantity = r.nextInt(5)+1;
+            moveQuantity = r.nextInt(20)+5;
         }
     }
 

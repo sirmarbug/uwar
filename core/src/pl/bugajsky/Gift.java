@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class Gift extends Rectangle{
     private int type;
-    private Pixmap pixmap;
+//    private Pixmap pixmap;
     private Texture texture;
     private Sprite sprite;
     private float time;
@@ -23,12 +23,12 @@ public class Gift extends Rectangle{
     public Gift(int x, int y) {
         //		Rysowanie prezentu
         super(x,y,32,32);
-        pixmap = new Pixmap(32, 32, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.PURPLE);
-        pixmap.fillRectangle(0,0, 32, 32);
-        texture = new Texture(pixmap);
+//        pixmap = new Pixmap(32, 32, Pixmap.Format.RGBA8888);
+//        pixmap.setColor(Color.PURPLE);
+//        pixmap.fillRectangle(0,0, 32, 32);
+        texture = new Texture("gift.png");
         sprite = new Sprite(texture);
-        pixmap.dispose();
+//        pixmap.dispose();
         Random r = new Random();
 //        type = 3;
         type = r.nextInt(7);
@@ -46,13 +46,13 @@ public class Gift extends Rectangle{
         this.type = type;
     }
 
-    public Pixmap getPixmap() {
-        return pixmap;
-    }
+//    public Pixmap getPixmap() {
+//        return pixmap;
+//    }
 
-    public void setPixmap(Pixmap pixmap) {
-        this.pixmap = pixmap;
-    }
+//    public void setPixmap(Pixmap pixmap) {
+//        this.pixmap = pixmap;
+//    }
 
     public Texture getTexture() {
         return texture;
