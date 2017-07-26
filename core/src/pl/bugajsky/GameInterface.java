@@ -11,7 +11,7 @@ public class GameInterface extends Actor {
     private Texture texture;
 
     public GameInterface(){
-        texture = new Texture("mapa.png");
+//        texture = new Texture("mapa.png");
     }
 
     @Override

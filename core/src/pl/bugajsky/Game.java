@@ -5,6 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -23,6 +28,9 @@ public class Game implements Screen {
     private SpriteBatch batch;
     private Player player;
     private Baza baza;
+    private TiledMap map;
+    private OrthogonalTiledMapRenderer renderer;
+//    private TiledMapRenderer renderer;
     private OrthographicCamera camera;
     private Texture texture;
     private float timeHome;
@@ -46,7 +54,7 @@ public class Game implements Screen {
     private Texture textureShoot;
     private TextureAtlas textureAtlasPlayer;
     private TextureAtlas textureAtlasEnemy;
-    private Texture map;
+//    private Texture map;
 
     public Game(final UWar game) {
         this.game = game;
@@ -55,7 +63,7 @@ public class Game implements Screen {
 
         batch = new SpriteBatch();
         textureShoot = new Texture("shoot.png");
-        map = new Texture("mapa.png");
+//        map = new Texture("mapa.png");
 
         textureAtlasPlayer = new TextureAtlas(Gdx.files.internal("player.pack"));
         textureAtlasEnemy = new TextureAtlas(Gdx.files.internal("enemy.pack"));
@@ -125,6 +133,9 @@ public class Game implements Screen {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        renderer.setView(camera);
+        renderer.render();
+
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
 
@@ -194,6 +205,8 @@ public class Game implements Screen {
 
         camera.update();
         batch.setProjectionMatrix(camera.combined);
+        renderer.setView(camera);
+        renderer.render();
 
 //		ustawienie współrzędnych playera
         myinterface.setPlayer("Poziom: " + statystyki.getPoziom());
@@ -644,7 +657,7 @@ public class Game implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.X)){
             if(camera.zoom >= 0 && camera.zoom <= 0.95){
                 camera.zoom += 0.01;
-//				System.out.println(camera.zoom);
+//				System.out.println("+: " + camera.zoom);
             }
         }
 
@@ -652,7 +665,7 @@ public class Game implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.C)){
             if(camera.zoom >= 0.1 && camera.zoom <= 1){
                 camera.zoom -= 0.01;
-//				System.out.println(camera.zoom);
+//				System.out.println("-: " + camera.zoom);
             }
         }
 
@@ -786,6 +799,10 @@ public class Game implements Screen {
 
     @Override
     public void show() {
+//        TmxMapLoader loader = new TmxMapLoader();
+//        map = loader.load("map.tmx");
+        map = new TmxMapLoader().load("map.tmx");
+        renderer = new OrthogonalTiledMapRenderer(map);
     }
 
     @Override
