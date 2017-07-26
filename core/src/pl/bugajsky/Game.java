@@ -95,6 +95,10 @@ public class Game implements Screen {
 //		Utworzenie gracza
         player = new Player(camera.viewportWidth / 2f, camera.viewportHeight / 2f);
 
+
+        map = new TmxMapLoader().load("map.tmx");
+        renderer = new OrthogonalTiledMapRenderer(map);
+
         gameInterface = new GameInterface();
 //        stage.addActor(gameInterface);
         myinterface = new Interface();
@@ -799,10 +803,6 @@ public class Game implements Screen {
 
     @Override
     public void show() {
-//        TmxMapLoader loader = new TmxMapLoader();
-//        map = loader.load("map.tmx");
-        map = new TmxMapLoader().load("map.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map);
     }
 
     @Override
