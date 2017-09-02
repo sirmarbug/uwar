@@ -1,7 +1,6 @@
 package pl.bugajsky;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -26,9 +25,10 @@ public class Menu implements Screen {
     private OrthographicCamera camera;
     private Stage stage;
     private Skin skin;
-    private Texture playTexture;
+    private Texture texture;
     private ImageButton playButton;
     private ImageButton exitButton;
+    private ImageButton authorButton;
     private Image image;
 
     public Menu(final UWar game) {
@@ -38,23 +38,29 @@ public class Menu implements Screen {
 
         skin = new Skin(Gdx.files.internal("uiFile/uiskin.json"));
 
-        playTexture = new Texture("ui/play.png");
-        Drawable drawable = new TextureRegionDrawable(new TextureRegion(playTexture));
+        texture = new Texture("ui/play.png");
+        Drawable drawable = new TextureRegionDrawable(new TextureRegion(texture));
         playButton = new ImageButton(drawable);
         playButton.setWidth(100f);
         playButton.setHeight(25f);
         playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() * 0.5f);
 
-        playTexture = new Texture("ui/exit.png");
-        drawable = new TextureRegionDrawable(new TextureRegion(playTexture));
+        texture = new Texture("ui/exit.png");
+        drawable = new TextureRegionDrawable(new TextureRegion(texture));
+        authorButton = new ImageButton(drawable);
+        authorButton.setWidth(100f);
+        authorButton.setHeight(25f);
+        authorButton.setPosition(Gdx.graphics.getWidth() / 2 - authorButton.getWidth() / 2, Gdx.graphics.getHeight() * 0.4f);
+
+        texture = new Texture("ui/exit.png");
+        drawable = new TextureRegionDrawable(new TextureRegion(texture));
         exitButton = new ImageButton(drawable);
         exitButton.setWidth(100f);
         exitButton.setHeight(25f);
+        exitButton.setPosition(Gdx.graphics.getWidth() / 2 - exitButton.getWidth() / 2, Gdx.graphics.getHeight() * 0.3f);
 
-        exitButton.setPosition(Gdx.graphics.getWidth() / 2 - exitButton.getWidth() / 2, Gdx.graphics.getHeight() * 0.4f);
-
-        playTexture = new Texture("ui/UWar.png");
-        image = new Image(playTexture);
+        texture = new Texture("ui/UWar.png");
+        image = new Image(texture);
         image.setHeight(25f);
         image.setWidth(100f);
         image.setPosition(Gdx.graphics.getWidth() / 2 - image.getWidth() / 2, Gdx.graphics.getHeight() * 0.8f);
@@ -72,7 +78,14 @@ public class Menu implements Screen {
             public void clicked(InputEvent event, float x, float y){
                 dispose();
                 game.setScreen(new Game(game));
+            }
+        });
 
+        authorButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                dispose();
+                game.setScreen(new Author(game));
             }
         });
 
@@ -81,6 +94,7 @@ public class Menu implements Screen {
 
         stage.addActor(playButton);
         stage.addActor(exitButton);
+        stage.addActor(authorButton);
         stage.addActor(image);
 
         Gdx.input.setInputProcessor(stage);
