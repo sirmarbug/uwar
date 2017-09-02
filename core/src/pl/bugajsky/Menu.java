@@ -2,6 +2,7 @@ package pl.bugajsky;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,6 +31,7 @@ public class Menu implements Screen {
     private ImageButton exitButton;
     private ImageButton authorButton;
     private Image image;
+    private Music music;
 
     public Menu(final UWar game) {
         this.game = game;
@@ -37,6 +39,9 @@ public class Menu implements Screen {
         stage = new Stage();
 
         skin = new Skin(Gdx.files.internal("uiFile/uiskin.json"));
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("music.ogg"));
+        music.play();
 
         texture = new Texture("ui/play.png");
         Drawable drawable = new TextureRegionDrawable(new TextureRegion(texture));
@@ -77,6 +82,7 @@ public class Menu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 dispose();
+                music.stop();
                 game.setScreen(new Game(game));
             }
         });
