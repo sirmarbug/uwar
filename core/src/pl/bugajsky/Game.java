@@ -54,6 +54,7 @@ public class Game implements Screen {
     private Texture textureShoot;
     private TextureAtlas textureAtlasPlayer;
     private TextureAtlas textureAtlasEnemy;
+    // private Texture test;
 //    private Texture map;
 
     public Game(final UWar game) {
@@ -96,7 +97,7 @@ public class Game implements Screen {
         player = new Player(camera.viewportWidth / 2f, camera.viewportHeight / 2f);
 
 
-        map = new TmxMapLoader().load("map.tmx");
+        map = new TmxMapLoader().load("map/map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
 
         gameInterface = new GameInterface();
@@ -164,6 +165,7 @@ public class Game implements Screen {
         }else{
             player.draw(batch, textureAtlasPlayer, 280); //gora
         }
+        batch.draw(player.getTexture(), player.getPozycja().x, player.getPozycja().y);
 
 //		Rysowanie strzałów
         for (Shoot s : strzaly) {
@@ -186,7 +188,7 @@ public class Game implements Screen {
             }else{
                 m.draw(batch, textureAtlasEnemy, 280); //gora
             }
-//            batch.draw(m.getTexture(), m.x, m.y);
+            batch.draw(m.getTexture(), m.x, m.y);
         }
 
 //      Rysowanie prezentów
