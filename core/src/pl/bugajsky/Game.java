@@ -12,6 +12,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import java.util.Iterator;
@@ -54,7 +56,6 @@ public class Game implements Screen {
     private Texture textureShoot;
     private TextureAtlas textureAtlasPlayer;
     private TextureAtlas textureAtlasEnemy;
-    // private Texture test;
 //    private Texture map;
 
     public Game(final UWar game) {
@@ -138,7 +139,7 @@ public class Game implements Screen {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        renderer.setView(camera);
+//        renderer.setView(camera);
         renderer.render();
 
         stage.act(Gdx.graphics.getDeltaTime());
@@ -165,7 +166,7 @@ public class Game implements Screen {
         }else{
             player.draw(batch, textureAtlasPlayer, 280); //gora
         }
-        batch.draw(player.getTexture(), player.getPozycja().x, player.getPozycja().y);
+//        batch.draw(player.getTexture(), player.getPozycja().x, player.getPozycja().y);
 
 //		Rysowanie strzałów
         for (Shoot s : strzaly) {
@@ -188,7 +189,7 @@ public class Game implements Screen {
             }else{
                 m.draw(batch, textureAtlasEnemy, 280); //gora
             }
-            batch.draw(m.getTexture(), m.x, m.y);
+//            batch.draw(m.getTexture(), m.x, m.y);
         }
 
 //      Rysowanie prezentów
@@ -212,7 +213,7 @@ public class Game implements Screen {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         renderer.setView(camera);
-        renderer.render();
+//        renderer.render();
 
 //		ustawienie współrzędnych playera
         myinterface.setPlayer("Poziom: " + statystyki.getPoziom());
