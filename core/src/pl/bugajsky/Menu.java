@@ -31,43 +31,35 @@ public class Menu implements Screen {
     private ImageButton exitButton;
     private ImageButton authorButton;
     private Image image;
-    private Music music;
+    private Drawable drawable;
+    private Music menuMusic;
 
     public Menu(final UWar game) {
         this.game = game;
 
         stage = new Stage();
-
         skin = new Skin(Gdx.files.internal("uiFile/uiskin.json"));
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("music.ogg"));
-        music.play();
+        menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menu.ogg"));
+        menuMusic.play();
 
         texture = new Texture("ui/play.png");
-        Drawable drawable = new TextureRegionDrawable(new TextureRegion(texture));
+        drawable = new TextureRegionDrawable(new TextureRegion(texture));
         playButton = new ImageButton(drawable);
-        playButton.setWidth(100f);
-        playButton.setHeight(25f);
         playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() * 0.5f);
 
-        texture = new Texture("ui/exit.png");
+        texture = new Texture("ui/author.png");
         drawable = new TextureRegionDrawable(new TextureRegion(texture));
         authorButton = new ImageButton(drawable);
-        authorButton.setWidth(100f);
-        authorButton.setHeight(25f);
         authorButton.setPosition(Gdx.graphics.getWidth() / 2 - authorButton.getWidth() / 2, Gdx.graphics.getHeight() * 0.4f);
 
         texture = new Texture("ui/exit.png");
         drawable = new TextureRegionDrawable(new TextureRegion(texture));
         exitButton = new ImageButton(drawable);
-        exitButton.setWidth(100f);
-        exitButton.setHeight(25f);
         exitButton.setPosition(Gdx.graphics.getWidth() / 2 - exitButton.getWidth() / 2, Gdx.graphics.getHeight() * 0.3f);
 
         texture = new Texture("ui/UWar.png");
         image = new Image(texture);
-        image.setHeight(25f);
-        image.setWidth(100f);
         image.setPosition(Gdx.graphics.getWidth() / 2 - image.getWidth() / 2, Gdx.graphics.getHeight() * 0.8f);
 
         exitButton.addListener(new ClickListener(){
@@ -82,7 +74,7 @@ public class Menu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 dispose();
-                music.stop();
+                menuMusic.stop();
                 game.setScreen(new Game(game));
             }
         });

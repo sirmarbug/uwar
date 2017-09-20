@@ -22,17 +22,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class Author implements Screen{
     final UWar game;
 
-    private String wynik;
     private OrthographicCamera camera;
     private Stage stage;
     private Skin skin;
     private Texture texture;
     private Label author;
     private Label me;
-//    private Image image;
     private Drawable drawable;
     private ImageButton backButton;
-//    private ImageButton exitButton;
 
     public Author(final UWar game) {
         this.game = game;
@@ -45,11 +42,9 @@ public class Author implements Screen{
         me = new Label("Mariusz Bugajski", skin);
         me.setPosition(Gdx.graphics.getWidth() / 2 - me.getWidth() / 2, Gdx.graphics.getHeight() * 0.5f);
 
-        texture = new Texture("ui/exit.png");
+        texture = new Texture("ui/back.png");
         drawable = new TextureRegionDrawable(new TextureRegion(texture));
         backButton = new ImageButton(drawable);
-        backButton.setWidth(100f);
-        backButton.setHeight(25f);
         backButton.setPosition(Gdx.graphics.getWidth() / 2 - backButton.getWidth() / 2, Gdx.graphics.getHeight() * 0.3f);
 
         backButton.addListener(new ClickListener(){

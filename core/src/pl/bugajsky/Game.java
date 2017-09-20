@@ -3,6 +3,7 @@ package pl.bugajsky;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -58,6 +59,7 @@ public class Game implements Screen {
     private TextureAtlas textureAtlasPlayer;
     private TextureAtlas textureAtlasEnemy;
     private Sound sound;
+    private Music atackMusic;
 //    private Texture map;
 
     public Game(final UWar game) {
@@ -65,7 +67,10 @@ public class Game implements Screen {
 
         stage = new Stage(new ScreenViewport());
 
-        sound = Gdx.audio.newSound(Gdx.files.internal("shoot.wav"));
+        sound = Gdx.audio.newSound(Gdx.files.internal("sound/shoot2.wav"));
+
+        atackMusic = Gdx.audio.newMusic(Gdx.files.internal("music/atack.ogg"));
+        atackMusic.play();
 
         batch = new SpriteBatch();
         textureShoot = new Texture("shoot.png");
@@ -211,6 +216,7 @@ public class Game implements Screen {
 
 //      warunek na koniec gry
         if(player.getHp() < 1 || baza.getHp() < 1) {
+            atackMusic.stop();
             game.setScreen(new End(game, player));
         }
 
@@ -226,7 +232,7 @@ public class Game implements Screen {
         myinterface.setLife("Life: " + player.getHp());
 
 //		ustawienie obecnego wyniku
-        myinterface.setScore(player.getScore() + "");
+        myinterface.setScore("Wynik: " + player.getScore() + "");
 
 //		ustawienie życia bazy
         myinterface.setBaza("Baza: " + baza.getHp());
@@ -373,7 +379,6 @@ public class Game implements Screen {
 //		dodanie strzałów
         timeShoot += Gdx.graphics.getDeltaTime();
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            sound.play(1f);
 //		Kierowanie strzałem
             if(Gdx.input.isKeyPressed(Input.Keys.UP)){
                 player.setDirection(1);
@@ -410,6 +415,7 @@ public class Game implements Screen {
             if(timeShoot > 0.2){
                 strzaly.add(new Shoot(player.x + player.getTexture().getWidth() / 2 - 5, player.y + player.getTexture().getHeight() / 2 - 5, 1, player.getDirection()));
                 timeShoot = 0;
+                sound.play();
             }
         }
 
@@ -694,8 +700,8 @@ public class Game implements Screen {
         timerGift += Gdx.graphics.getDeltaTime();
 
 //      Dodanie prezentu na mapę
-        int g1 = r.nextInt(1000);
-        int g2 = r.nextInt(1000);
+        int g1 = r.nextInt(10);
+        int g2 = r.nextInt(10);
         if(g1 == g2 || timerGift > 100){
             giftLinkedList.add(new Gift(r.nextInt(5000), r.nextInt(5000)));
             timerGift = 0;

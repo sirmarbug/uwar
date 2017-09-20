@@ -2,6 +2,7 @@ package pl.bugajsky;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -16,21 +17,26 @@ public class Interface extends Actor{
     private String baza;
     private String info;
     private String gift;
-    private BitmapFont playerFont;
+    private BitmapFont levelFont;
     private BitmapFont scoreFont;
     private BitmapFont lifeFont;
     private BitmapFont bazaFont;
     private BitmapFont infoFont;
     private BitmapFont giftFont;
+    private Texture statTexture;
+    private Texture infoTexture;
 
     public Interface(){
-        playerFont = new BitmapFont();
+        statTexture = new Texture("ui/panel.png");
+        infoTexture = new Texture("ui/info.png");
+        levelFont = new BitmapFont();
         scoreFont = new BitmapFont();
         lifeFont = new BitmapFont();
         bazaFont = new BitmapFont();
         infoFont = new BitmapFont();
         giftFont = new BitmapFont();
-        playerFont.setColor(Color.WHITE);
+//        infoTexture = new Texture("shoot.png");
+        levelFont.setColor(Color.WHITE);
         scoreFont.setColor(Color.WHITE);
         lifeFont.setColor(Color.WHITE);
         bazaFont.setColor(Color.WHITE);
@@ -90,12 +96,17 @@ public class Interface extends Actor{
 
     @Override
     public void draw(Batch batch, float parentAlpha){
-        playerFont.draw(batch, player, 5, 475);
-        scoreFont.draw(batch, score, 300, 475);
-        lifeFont.draw(batch, life, 570, 475);
-        bazaFont.draw(batch, baza, 570, 450);
-        infoFont.draw(batch, info, 150, 20);
-        giftFont.draw(batch, gift, 500, 425);
+        batch.draw(statTexture, Gdx.graphics.getWidth() * 0.92f - statTexture.getWidth() / 2, Gdx.graphics.getHeight() * 0.89f - statTexture.getHeight() / 2);
+        batch.draw(statTexture, Gdx.graphics.getWidth() * 0.08f - statTexture.getWidth() / 2, Gdx.graphics.getHeight() * 0.89f - statTexture.getHeight() / 2);
+        levelFont.draw(batch, player, Gdx.graphics.getWidth() * 0.03f - levelFont.getSpaceWidth() / 2, Gdx.graphics.getHeight() * 0.98f - levelFont.getLineHeight() / 2);
+        scoreFont.draw(batch, score, Gdx.graphics.getWidth() * 0.035f - levelFont.getSpaceWidth() / 2, Gdx.graphics.getHeight() * 0.93f - levelFont.getLineHeight() / 2);
+        lifeFont.draw(batch, life, Gdx.graphics.getWidth() * 0.89f - lifeFont.getSpaceWidth() / 2, Gdx.graphics.getHeight() * 0.98f - lifeFont.getLineHeight() / 2);
+        bazaFont.draw(batch, baza, Gdx.graphics.getWidth() * 0.88f - bazaFont.getSpaceWidth() / 2, Gdx.graphics.getHeight() * 0.93f - bazaFont.getLineHeight() / 2);
+        infoFont.draw(batch, info, Gdx.graphics.getWidth() * 0.3f - infoFont.getSpaceWidth(), Gdx.graphics.getHeight() * 0.08f - infoFont.getLineHeight() / 2);
+        giftFont.draw(batch, gift, Gdx.graphics.getWidth() * 0.88f - giftFont.getSpaceWidth() / 2, Gdx.graphics.getHeight() * 0.90f - giftFont.getLineHeight() / 2);
+        if (info != "") {
+            batch.draw(infoTexture, Gdx.graphics.getWidth() / 2 - infoTexture.getWidth() / 2, Gdx.graphics.getHeight() * 0.05f - infoTexture.getHeight() / 2);
+        }
     }
 
 }
